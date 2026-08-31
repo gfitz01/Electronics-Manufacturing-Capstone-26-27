@@ -18,7 +18,7 @@ import torchvision
 from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
-from torchvision.models import alexnet
+from torchvision.models import alexnet, AlexNet_Weights
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -58,7 +58,8 @@ class Network(nn.Module):
             else:
                 print("Please enter valid input")
 
-        model = alexnet(pretrained=self.pretrained)
+        weights = AlexNet_Weights.IMAGENET1K_V1 if self.pretrained else None
+        model = alexnet(weights=weights)
         model.features[0] = nn.Conv2d(self.channel, 64, kernel_size=(
             3, 3), stride=(1, 1), padding=(1, 1), bias=False)
         model.classifier[-1] = nn.Linear(4096, self.num_class)

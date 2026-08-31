@@ -18,7 +18,7 @@ import torchvision
 from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
-from torchvision.models import vgg11, vgg13, vgg16, vgg19
+from torchvision.models import vgg11, vgg13, vgg16, vgg19, VGG11_Weights, VGG13_Weights, VGG16_Weights, VGG19_Weights
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -63,8 +63,11 @@ class Network(nn.Module):
             self.model_select = int(input('Please enter any number between 1 to 4 to select the model:\
                                         \n[1:VGG11,2:VGG13,3:VGG16,4:VGG19]\n').replace(' ',''))
             if (1 <= self.model_select <= 4):
-                model = self.pretrained_dict[self.model_select](
-                    pretrained=self.pretrained)
+                weights_dict = {1: VGG11_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               2: VGG13_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               3: VGG16_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               4: VGG19_Weights.IMAGENET1K_V1 if self.pretrained else None}
+                model = self.pretrained_dict[self.model_select](weights=weights_dict[self.model_select])
                 gate = 1
             else:
                 print('Please enter valid input')

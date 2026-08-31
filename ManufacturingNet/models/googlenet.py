@@ -18,7 +18,7 @@ import torchvision
 from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
-from torchvision.models import googlenet
+from torchvision.models import googlenet, GoogLeNet_Weights
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -57,7 +57,8 @@ class Network(nn.Module):
             else:
                 print('Please enter valid input')
 
-        model = googlenet(pretrained=self.pretrained)
+        weights = GoogLeNet_Weights.IMAGENET1K_V1 if self.pretrained else None
+        model = googlenet(weights=weights)
         model.conv1 = BasicConv2d(
             self.channel, 64, kernel_size=7, stride=2, padding=3)
         model.fc = nn.Linear(1024, self.num_class)

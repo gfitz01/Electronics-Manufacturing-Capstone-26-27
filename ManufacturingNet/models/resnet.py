@@ -19,7 +19,7 @@ from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.models import (resnet18, resnet34, resnet50, resnet101,
-                                resnext50_32x4d)
+                                resnext50_32x4d, ResNet18_Weights, ResNet34_Weights, ResNet50_Weights, ResNet101_Weights)
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -65,8 +65,12 @@ class Network(nn.Module):
             self.model_select = int(input('Please enter any number between 1 to 5 to select the model:\
                                         \n[1:ResNet18,2:ResNet34,3:ResNet50,4:ResNet101,5:ResNext50]').replace(' ',''))
             if (1 <= self.model_select <= 5):
-                model = self.pretrained_dict[self.model_select](
-                    pretrained=self.pretrained)
+                weights_dict = {1: ResNet18_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               2: ResNet34_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               3: ResNet50_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               4: ResNet101_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               5: None}
+                model = self.pretrained_dict[self.model_select](weights=weights_dict[self.model_select])
                 gate = 1
             else:
                 print('Please enter valid input')

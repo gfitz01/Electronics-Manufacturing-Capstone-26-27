@@ -18,7 +18,7 @@ import torchvision
 from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
-from torchvision.models import densenet121, densenet169, densenet201
+from torchvision.models import densenet121, densenet169, densenet201, DenseNet121_Weights, DenseNet169_Weights, DenseNet201_Weights
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -63,9 +63,11 @@ class Network(nn.Module):
             self.model_select = int(input('Please enter any number between 1 to 3 to select the model:\
                                         \n[1:DenseNet121,2:DenseNet169,3:DenseNet201] \n').replace(' ',''))
 
-            if (1 <= self.model_select <= 4):
-                model = self.pretrained_dict[self.model_select](
-                    pretrained=self.pretrained)
+            if (1 <= self.model_select <= 3):
+                weights_dict = {1: DenseNet121_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               2: DenseNet169_Weights.IMAGENET1K_V1 if self.pretrained else None,
+                               3: DenseNet201_Weights.IMAGENET1K_V1 if self.pretrained else None}
+                model = self.pretrained_dict[self.model_select](weights=weights_dict[self.model_select])
                 gate = 1
             else:
                 print('Please enter valid input')
