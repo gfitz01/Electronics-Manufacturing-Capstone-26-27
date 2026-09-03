@@ -24,8 +24,8 @@ setup(name=package_name,\
       classifiers=classifiers,
       keywords=' ',
       python_requires='>=3.5, <4',
-      install_requires=['sklearn', 'matplotlib', 
-                        'xgboost', 'scikit-learn', 
-                        'timm', 'Pillow'],
+      install_requires=['matplotlib',
+                        'xgboost', 'scikit-learn',
+                        'timm', 'Pillow', 'gdown', 'requests'],
       packages=find_packages(),
       zip_safe=False)
