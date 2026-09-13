@@ -61,8 +61,8 @@ class Dataset(data.Dataset):
 
     def __getitem__(self, index):
 
-        x_item = torch.from_numpy(self.X[index]).double()
-        y_item = torch.from_numpy(np.array(self.Y[index])).double()
+        x_item = torch.from_numpy(self.X[index]).float()
+        y_item = torch.from_numpy(np.array(self.Y[index])).float()
 
         return x_item, y_item
 
@@ -340,7 +340,7 @@ class DNN():
         self.get_default_paramters()            # getting default parameters argument
 
         # building a network architecture
-        self.net = DNNBase(self.default_gate).double()
+        self.net = DNNBase(self.default_gate).float()
 
         print('='*25)
         print('5/10 - Batch size input')

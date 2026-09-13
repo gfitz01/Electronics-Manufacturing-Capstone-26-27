@@ -19,6 +19,7 @@ from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.models import vgg11, vgg13, vgg16, vgg19, VGG11_Weights, VGG13_Weights, VGG16_Weights, VGG19_Weights
+from ManufacturingNet.models._backbone_utils import adapt_first_conv
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -71,10 +72,9 @@ class Network(nn.Module):
                 gate = 1
             else:
                 print('Please enter valid input')
-        model.features[0] = nn.Conv2d(self.channel, 64, kernel_size=(
-            3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        model.features[0] = adapt_first_conv(model.features[0], self.channel)
         model.classifier[-1] = nn.Linear(4096, self.num_class, bias=True)
-        self.net = model.double()
+        self.net = model.float()
         spacing()
         
 # The following class will be called by a user. The class calls other necessary classes to build a complete pipeline required for training
@@ -408,7 +408,7 @@ class VGG():
         print('='*25)
 
         image_transform = transforms.Compose([transforms.Grayscale(
-            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=2), transforms.ToTensor()])
+            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=transforms.InterpolationMode.BILINEAR), transforms.ToTensor()])
 
         self.train_dataset = torchvision.datasets.ImageFolder(
             root=self.train_address, transform=image_transform)            # creating the training dataset
@@ -494,7 +494,7 @@ class VGG():
             for batch_idx, (data, target) in enumerate(self.train_loader):
 
                 self.optimizer.zero_grad()
-                data = data.double().to(self.device)
+                data = data.float().to(self.device)
                 target = target.to(self.device)
                 outputs = self.net(data)
 
@@ -556,7 +556,7 @@ class VGG():
 
         for batch_idx, (data, target) in enumerate(self.dev_loader):
 
-            data = data.double().to(self.device)
+            data = data.float().to(self.device)
             target = target.to(self.device)
             outputs = self.net(data)
 

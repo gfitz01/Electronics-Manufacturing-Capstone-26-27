@@ -342,7 +342,7 @@ class CNN2DImage:
         self.get_image_size()  # getting the image size (resized or original)
 
         # building a network architecture
-        self.net = (Network(self.img_size, self.num_classes)).double()
+        self.net = (Network(self.img_size, self.num_classes)).float()
 
         print("=" * 25)
         print("4/8 - Batch size input")
@@ -692,7 +692,7 @@ class CNN2DImage:
         image_transform = transforms.Compose(
             [
                 transforms.Grayscale(num_output_channels=self.img_size[-1]),
-                transforms.Resize((self.img_size[:-1]), interpolation=2),
+                transforms.Resize((self.img_size[:-1]), interpolation=transforms.InterpolationMode.BILINEAR),
                 transforms.ToTensor(),
             ]
         )
@@ -786,7 +786,7 @@ class CNN2DImage:
             for batch_idx, (data, target) in enumerate(self.train_loader):
 
                 self.optimizer.zero_grad()
-                data = data.double().to(self.device)
+                data = data.float().to(self.device)
                 target = target.to(self.device)
                 outputs = self.net(data)
 
@@ -848,7 +848,7 @@ class CNN2DImage:
 
         for batch_idx, (data, target) in enumerate(self.dev_loader):
 
-            data = data.double().to(self.device)
+            data = data.float().to(self.device)
             target = target.to(self.device)
             outputs = self.net(data)
 

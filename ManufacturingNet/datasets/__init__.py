@@ -3,6 +3,9 @@ from .datasets import CastingData,ChatterData
 from .datasets import MercedesData, ThreeDPrintingData, MotorTempData, LithographyData
 from .datasets import GearboxData
 from .datasets import download_file_from_google_drive_with_gdown
+from .datasets import (use_local_archive, prepare_image_folder,
+                       discover_classes, count_images)
 #from .datasets import SpatterData
 
-__all__=['PaderbornBearingData','CWRUBearingData','CastingData','ChatterData','MercedesData', 'ThreeDPrintingData', 'MotorTempData', 'LithographyData','GearboxData']#,'SpatterData']
+__all__=['PaderbornBearingData','CWRUBearingData','CastingData','ChatterData','MercedesData', 'ThreeDPrintingData', 'MotorTempData', 'LithographyData','GearboxData',
+         'use_local_archive', 'prepare_image_folder', 'discover_classes', 'count_images']#,'SpatterData']

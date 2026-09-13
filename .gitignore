@@ -11,3 +11,7 @@ __pycache__/
 
 # due to using tox and pytest
 .tox
+results/
+__pycache__/
+*.pyc
+.venv/
