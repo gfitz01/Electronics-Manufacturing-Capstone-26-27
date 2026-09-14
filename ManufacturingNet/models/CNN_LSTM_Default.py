@@ -49,8 +49,8 @@ class Dataset(data.Dataset):
         return len(self.Y)
 
     def __getitem__(self, index):
-        x_item = torch.from_numpy(self.X[index]).double()
-        y_item = torch.from_numpy(np.array(self.Y[index])).double()
+        x_item = torch.from_numpy(self.X[index]).float()
+        y_item = torch.from_numpy(np.array(self.Y[index])).float()
         return x_item, y_item
 
 
@@ -703,7 +703,7 @@ class CNN_LSTM(nn.Module):
     def forward(self, x):
         b, time, num_channels, h, w = x.shape
         lstm_input = torch.zeros(
-            (b, time, self.lstm.input_size)).double().to(self.device)
+            (b, time, self.lstm.input_size)).float().to(self.device)
 
         for i in range(time):
             lstm_input[:, i, :] = self.cnn.forward(x[:, i, :, :, :])
@@ -714,7 +714,7 @@ class CNN_LSTM(nn.Module):
     def predict(self, x):
         b, time, num_channels, h, w = x.shape
         lstm_input = torch.zeros(
-            (b, time, self.lstm.input_size)).double().to(self.device)
+            (b, time, self.lstm.input_size)).float().to(self.device)
 
         for i in range(time):
             lstm_input[:, i, :] = self.cnn.forward(x[:, i, :, :, :])
@@ -738,9 +738,9 @@ class CNNLSTM():
         self.shuffle = shuffle
         self.get_default_parameters()
 
-        self.cnn_network = CNN2D(CNNBlock).double()
+        self.cnn_network = CNN2D(CNNBlock).float()
         self.lstm_network = LSTM(
-            self.cnn_network.linear_size, self.default_gate).double()
+            self.cnn_network.linear_size, self.default_gate).float()
         self._set_device()
         self.net = CNN_LSTM(self.cnn_network, self.lstm_network, self.device)
 

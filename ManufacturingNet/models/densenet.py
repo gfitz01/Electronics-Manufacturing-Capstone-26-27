@@ -19,6 +19,7 @@ from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.models import densenet121, densenet169, densenet201, DenseNet121_Weights, DenseNet169_Weights, DenseNet201_Weights
+from ManufacturingNet.models._backbone_utils import adapt_first_conv
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -73,8 +74,7 @@ class Network(nn.Module):
                 print('Please enter valid input')
 
         # print(self.train_data[0][0].shape[0])
-        model.features[0] = nn.Conv2d(self.channel, 64, kernel_size=(
-            7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        model.features[0] = adapt_first_conv(model.features[0], self.channel)
         if self.model_select == 1:
             model.classifier = nn.Linear(1024, self.num_class)
         elif self.model_select == 2:
@@ -82,7 +82,7 @@ class Network(nn.Module):
         else:
             model.classifier = nn.Linear(1920, self.num_class)
 
-        self.net = model.double()
+        self.net = model.float()
 
         spacing()
         
@@ -417,7 +417,7 @@ class DenseNet():
         print('='*25)
 
         image_transform = transforms.Compose([transforms.Grayscale(
-            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=2), transforms.ToTensor()])
+            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=transforms.InterpolationMode.BILINEAR), transforms.ToTensor()])
 
         self.train_dataset = torchvision.datasets.ImageFolder(
             root=self.train_address, transform=image_transform)            # creating the training dataset
@@ -503,7 +503,7 @@ class DenseNet():
             for batch_idx, (data, target) in enumerate(self.train_loader):
 
                 self.optimizer.zero_grad()
-                data = data.double().to(self.device)
+                data = data.float().to(self.device)
                 target = target.to(self.device)
                 outputs = self.net(data)
 
@@ -565,7 +565,7 @@ class DenseNet():
 
         for batch_idx, (data, target) in enumerate(self.dev_loader):
 
-            data = data.double().to(self.device)
+            data = data.float().to(self.device)
             target = target.to(self.device)
             outputs = self.net(data)
 

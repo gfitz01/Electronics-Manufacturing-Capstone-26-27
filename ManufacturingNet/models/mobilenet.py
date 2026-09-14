@@ -19,6 +19,7 @@ from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
+from ManufacturingNet.models._backbone_utils import adapt_first_conv
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -59,11 +60,11 @@ class Network(nn.Module):
 
         weights = MobileNet_V2_Weights.IMAGENET1K_V1 if self.pretrained else None
         model = mobilenet_v2(weights=weights)
-        model.features[0][0] = nn.Conv2d(self.channel, 32, kernel_size=(
-            3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        model.features[0][0] = adapt_first_conv(
+            model.features[0][0], self.channel)
         model.classifier[-1] = nn.Linear(1280, self.num_class)
 
-        self.net = model.double()
+        self.net = model.float()
 
         spacing()
         
@@ -398,7 +399,7 @@ class MobileNet():
         print('='*25)
 
         image_transform = transforms.Compose([transforms.Grayscale(
-            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=2), transforms.ToTensor()])
+            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=transforms.InterpolationMode.BILINEAR), transforms.ToTensor()])
 
         self.train_dataset = torchvision.datasets.ImageFolder(
             root=self.train_address, transform=image_transform)            # creating the training dataset
@@ -484,7 +485,7 @@ class MobileNet():
             for batch_idx, (data, target) in enumerate(self.train_loader):
 
                 self.optimizer.zero_grad()
-                data = data.double().to(self.device)
+                data = data.float().to(self.device)
                 target = target.to(self.device)
                 outputs = self.net(data)
 
@@ -546,7 +547,7 @@ class MobileNet():
 
         for batch_idx, (data, target) in enumerate(self.dev_loader):
 
-            data = data.double().to(self.device)
+            data = data.float().to(self.device)
             target = target.to(self.device)
             outputs = self.net(data)
 

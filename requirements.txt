@@ -1,0 +1,20 @@
+# ManufacturingNet runtime dependencies.
+# Tested against Python 3.9-3.12.
+#
+# torch/torchvision were missing from setup.py entirely, which is why a fresh
+# install could not import any deep-learning model. Pin them together: the
+# torchvision release must match the torch release.
+torch>=2.0
+torchvision>=0.15
+numpy>=1.23
+scipy>=1.9
+matplotlib>=3.6
+scikit-learn>=1.2
+xgboost>=1.7
+timm>=0.9
+Pillow>=9.0
+requests>=2.28
+
+# Optional: only needed for the Google Drive download path, which is no longer
+# required (see QUICKSTART.md).
+# gdown>=5.1

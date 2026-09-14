@@ -19,6 +19,8 @@ from torch.utils import data as data_utils
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.models import alexnet, AlexNet_Weights
+from ManufacturingNet.models._backbone_utils import adapt_first_conv
+from ManufacturingNet.reporting import RunReport
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -60,11 +62,10 @@ class Network(nn.Module):
 
         weights = AlexNet_Weights.IMAGENET1K_V1 if self.pretrained else None
         model = alexnet(weights=weights)
-        model.features[0] = nn.Conv2d(self.channel, 64, kernel_size=(
-            3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        model.features[0] = adapt_first_conv(model.features[0], self.channel)
         model.classifier[-1] = nn.Linear(4096, self.num_class)
 
-        self.net = model.double()
+        self.net = model.float()
         spacing()
         
 # The following class will be called by a user. The class calls other necessary classes to build a complete pipeline required for training
@@ -398,7 +399,7 @@ class AlexNet():
         print('='*25)
 
         image_transform = transforms.Compose([transforms.Grayscale(
-            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=2), transforms.ToTensor()])
+            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=transforms.InterpolationMode.BILINEAR), transforms.ToTensor()])
 
         self.train_dataset = torchvision.datasets.ImageFolder(
             root=self.train_address, transform=image_transform)            # creating the training dataset
@@ -414,6 +415,24 @@ class AlexNet():
         self.dev_loader = torch.utils.data.DataLoader(
             self.val_dataset, batch_size=self.batchsize)
 
+        # structured run report -- see ManufacturingNet/reporting/run_report.py
+        self.report = RunReport(
+            model_name="AlexNet",
+            class_names=self.train_dataset.classes,
+            hyperparameters={
+                "epochs": self.numEpochs,
+                "batch_size": self.batchsize,
+                "learning_rate": self.lr,
+                "optimizer": type(self.optimizer).__name__,
+                "criterion": type(self.criterion).__name__,
+                "image_size": list(self.img_size),
+                "pretrained": getattr(self, "pretrained", None),
+                "device": str(self.device),
+                "train_images": len(self.train_dataset),
+                "val_images": len(self.val_dataset),
+            },
+        )
+
         self.train_model()          # training the model
 
         self.get_loss_graph()           # saving the loss graph
@@ -422,6 +441,7 @@ class AlexNet():
 
             self.get_accuracy_graph()           # saving the accuracy graph
             self.get_confusion_matrix()         # printing confusion matrix
+            self.save_report()          # writing results.json / summary.csv
 
         self._save_model()              # saving model paramters
 
@@ -469,8 +489,6 @@ class AlexNet():
         self.training_acc = []
         self.dev_loss = []
         self.dev_accuracy = []
-        total_predictions = 0.0
-        correct_predictions = 0.0
 
         print('Training the model...')
 
@@ -480,11 +498,16 @@ class AlexNet():
             self.net.train()
             print('Epoch_Number: ', epoch)
             running_loss = 0.0
+            # BUGFIX: these counters used to live outside the epoch loop, so
+            # "training accuracy" was cumulative across every epoch seen so
+            # far rather than the accuracy of this epoch.
+            total_predictions = 0.0
+            correct_predictions = 0.0
 
             for batch_idx, (data, target) in enumerate(self.train_loader):
 
                 self.optimizer.zero_grad()
-                data = data.double().to(self.device)
+                data = data.float().to(self.device)
                 target = target.to(self.device)
                 outputs = self.net(data)
 
@@ -508,10 +531,12 @@ class AlexNet():
             self.training_loss.append(running_loss)
             print('Training Loss: ', running_loss)
 
+            train_acc = None
             # printing the epoch accuracy only if the loss function is Cross entropy
             if self.criterion_input == '1':
 
                 acc = (correct_predictions/total_predictions)*100.0
+                train_acc = acc
                 self.training_acc.append(acc)
                 print('Training Accuracy: ', acc, '%')
 
@@ -533,6 +558,17 @@ class AlexNet():
 
                 self.dev_accuracy.append(dev_acc)
 
+            if getattr(self, "report", None) is not None:
+                self.report.log_epoch(
+                    epoch=epoch,
+                    train_loss=running_loss,
+                    train_accuracy=train_acc,
+                    val_loss=dev_loss,
+                    val_accuracy=dev_acc if self.criterion_input == '1' else None,
+                    seconds=end_time - start_time,
+                    learning_rate=self.optimizer.param_groups[0]['lr'],
+                )
+
     def validate_model(self):
 
         with torch.no_grad():
@@ -543,10 +579,11 @@ class AlexNet():
         acc = 0
         self.actual = []
         self.predict = []
+        self.confidence = []
 
         for batch_idx, (data, target) in enumerate(self.dev_loader):
 
-            data = data.double().to(self.device)
+            data = data.float().to(self.device)
             target = target.to(self.device)
             outputs = self.net(data)
 
@@ -557,6 +594,10 @@ class AlexNet():
                 total_predictions += target.size(0)
                 correct_predictions += (predicted == target).sum().item()
                 self.predict.append(predicted.detach().cpu().numpy())
+                # softmax confidence of the winning class, for the report
+                probabilities = F.softmax(outputs.detach(), dim=1)
+                self.confidence.append(
+                    probabilities.max(dim=1).values.cpu().numpy())
 
             else:
                 loss = self.criterion(outputs, target)
@@ -615,8 +656,42 @@ class AlexNet():
             np_actual = np.concatenate((np_actual,
                                         self.actual[i].reshape(-1)),
                                         axis=0)
-        result = confusion_matrix(np_predict, np_actual)
+        # BUGFIX: sklearn's signature is confusion_matrix(y_true, y_pred).
+        # These were passed the other way round, which transposed the matrix
+        # and effectively swapped precision with recall when reading it.
+        result = confusion_matrix(np_actual, np_predict)
+        print('(rows = true class, columns = predicted class)')
         print(result)
+
+    def save_report(self, output_dir='results'):
+
+        # Method for writing the machine-readable run output. This is the
+        # file anything downstream (dashboard, spreadsheet, webapp) reads --
+        # console prints and PNG plots cannot be consumed programmatically.
+
+        if getattr(self, 'report', None) is None:
+            print('No run report to save.')
+            return None
+
+        np_predict = np.concatenate(
+            [np.asarray(p).reshape(-1) for p in self.predict], axis=0)
+        np_actual = np.concatenate(
+            [np.asarray(a).reshape(-1) for a in self.actual], axis=0)
+
+        confidences = None
+        if getattr(self, 'confidence', None):
+            confidences = np.concatenate(
+                [np.asarray(c).reshape(-1) for c in self.confidence], axis=0)
+
+        file_paths = None
+        if hasattr(self.val_dataset, 'samples'):
+            file_paths = [path for path, _ in self.val_dataset.samples]
+
+        self.report.set_predictions(np_actual, np_predict,
+                                    confidences=confidences,
+                                    file_paths=file_paths)
+        self.report.print_summary()
+        return self.report.save(output_dir)
 
     def get_prediction(self, x_input):
         """

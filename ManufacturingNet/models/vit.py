@@ -406,7 +406,7 @@ class VITImageClassifier:
         image_transform = transforms.Compose(
             [
                 transforms.Grayscale(num_output_channels=self.img_size[-1]),
-                transforms.Resize((self.img_size[:-1]), interpolation=2),
+                transforms.Resize((self.img_size[:-1]), interpolation=transforms.InterpolationMode.BILINEAR),
                 transforms.ToTensor(),
             ]
         )

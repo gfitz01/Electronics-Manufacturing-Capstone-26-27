@@ -60,7 +60,7 @@ class Dataset(data.Dataset):
 
     def __getitem__(self, index):
 
-        x_item = torch.from_numpy(self.X[index]).double()
+        x_item = torch.from_numpy(self.X[index]).float()
         y_item = torch.from_numpy(np.array(self.Y[index]))
 
         return x_item, y_item
@@ -609,7 +609,7 @@ class CNN2DSignal(object):
         self.shuffle = shuffle
         #self.num_classes = num_classes
         # building a network architecture
-        self.net = CNN2D(CNNBlock).double()
+        self.net = CNN2D(CNNBlock).float()
         # print(self.net.parameters())
 
         print('10/15 - Batch size input')
