@@ -18,6 +18,7 @@ supported path for coursework is :func:`use_local_archive` /
 helpers at it, and never depend on Drive again.
 """
 
+import inspect
 import os
 import re
 import shutil
@@ -111,7 +112,26 @@ def download_file_from_google_drive_with_gdown(id, destination):
         )
 
     url = "https://drive.google.com/uc?id=" + id
-    gdown.download(url, destination, quiet=False, fuzzy=True)
+
+    # gdown's download() signature is not stable across releases -- `fuzzy`
+    # exists in some versions and not others, and passing an argument the
+    # installed version doesn't know about raises TypeError before any
+    # download is attempted. Ask this install what it accepts.
+    kwargs = {"quiet": False}
+    try:
+        accepted = inspect.signature(gdown.download).parameters
+    except (TypeError, ValueError):       # C-implemented or unintrospectable
+        accepted = {}
+    if "fuzzy" in accepted:
+        # Only needed for messy share URLs; harmless on the canonical uc?id=
+        # form we build above, and useful if that form ever changes.
+        kwargs["fuzzy"] = True
+
+    try:
+        gdown.download(url, destination, **kwargs)
+    except TypeError:
+        # Last-resort: some builds only accept positional url/output.
+        gdown.download(url, destination)
 
     if not os.path.exists(destination):
         raise RuntimeError(

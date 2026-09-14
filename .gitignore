@@ -11,7 +11,49 @@ __pycache__/
 
 # due to using tox and pytest
 .tox
-results/
-__pycache__/
-*.pyc
+
+# ---------------------------------------------------------------------------
+# Virtual environments -- hundreds of MB, and machine-specific. Everyone
+# rebuilds their own from requirements.txt.
+# ---------------------------------------------------------------------------
 .venv/
+venv/
+env/
+
+# ---------------------------------------------------------------------------
+# Datasets. NEVER commit these.
+#
+# casting_data/ is the downloaded archive (~7,300 images), and data/ and
+# data_small/ are copies of it built by prepare_data.py. Together they are
+# several hundred MB. Anyone can regenerate all of it in two commands:
+#
+#     python -c "from ManufacturingNet.datasets import CastingData; CastingData()"
+#     python prepare_data.py casting_data
+# ---------------------------------------------------------------------------
+casting_data/
+data/
+data_small/
+raw/
+*.zip
+
+# ---------------------------------------------------------------------------
+# Trained model weights. model_parameters.pth is ~217 MB -- GitHub rejects any
+# file over 100 MB outright, so committing this does not just bloat the repo,
+# it blocks the push entirely. Use GitHub Releases or a shared drive if a
+# trained model needs sharing.
+# ---------------------------------------------------------------------------
+*.pth
+*.pt
+*.ckpt
+
+# ---------------------------------------------------------------------------
+# Plots written to the repo root by the training loop on every run. The same
+# data lives in results/<run>/summary.csv in a form you can actually use.
+# ---------------------------------------------------------------------------
+/loss.png
+/accuracy.png
+
+# NOTE: results/ is deliberately NOT ignored. Each run writes a small
+# timestamped folder (JSON + CSV, well under 1 MB) that is the reproducible
+# record of what was run and what came out. That is exactly the kind of thing
+# a capstone wants in version control.
