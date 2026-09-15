@@ -77,7 +77,8 @@ class AlexNet():
 
     """
 
-    def __init__(self, train_data_address, val_data_address, shuffle=True):
+    def __init__(self, train_data_address, val_data_address, shuffle=True,
+                 augment=False):
 
         # Lists used in the functions below
         self.criterion_list = {1: nn.CrossEntropyLoss(), 2: torch.nn.L1Loss(
@@ -86,6 +87,9 @@ class AlexNet():
         self.train_address = train_data_address
         self.val_address = val_data_address
         self.shuffle = shuffle
+        # augment=True applies random flips, rotation and brightness/contrast
+        # jitter to the TRAINING images only. See build_transforms().
+        self.augment = augment
 
         self.get_default_paramters()            # getting default parameters argument
 
@@ -95,7 +99,12 @@ class AlexNet():
         self.get_image_size()  # getting the image size (resized or original)
 
         # building a network architecture
-        self.net = (Network(self.img_size, self.num_classes)).net
+        network = Network(self.img_size, self.num_classes)
+        # keep the pretrained flag on the wrapper so the run report records it
+        # (it previously lived only on the discarded Network object and logged
+        # as null)
+        self.pretrained = network.pretrained
+        self.net = network.net
 
         print('='*25)
         print('3/7 - Batch size input')
@@ -382,6 +391,61 @@ class AlexNet():
             else:
                 print('Please enter a valid input')
 
+    def build_transforms(self):
+
+        # Method returning (train_transform, val_transform).
+        #
+        # Augmentation is applied to TRAINING images only. The validation set
+        # must stay fixed, otherwise the score changes run to run for reasons
+        # that have nothing to do with the model and the two are not
+        # comparable.
+
+        height, width = self.img_size[0], self.img_size[1]
+        channels = self.img_size[-1]
+
+        base = [
+            transforms.Grayscale(num_output_channels=channels),
+            transforms.Resize(
+                (height, width),
+                interpolation=transforms.InterpolationMode.BILINEAR),
+        ]
+
+        val_transform = transforms.Compose(base + [transforms.ToTensor()])
+
+        if not self.augment:
+            self.augmentation_used = None
+            return val_transform, val_transform
+
+        # Chosen for this problem: the castings are circular and photographed
+        # centred, so a part can legitimately arrive at any angle and either
+        # mirroring. Brightness/contrast jitter stands in for lighting drift.
+        # Nothing here crops, because a defect near the rim must not be cut
+        # out of frame -- that would relabel the image rather than vary it.
+        augmentations = [
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.RandomVerticalFlip(p=0.5),
+            transforms.RandomRotation(degrees=20),
+            transforms.ColorJitter(brightness=0.2, contrast=0.2),
+        ]
+
+        self.augmentation_used = [
+            "RandomHorizontalFlip(p=0.5)",
+            "RandomVerticalFlip(p=0.5)",
+            "RandomRotation(degrees=20)",
+            "ColorJitter(brightness=0.2, contrast=0.2)",
+        ]
+
+        train_transform = transforms.Compose(
+            base + augmentations + [transforms.ToTensor()])
+
+        print('Augmentation enabled for the training set:')
+        for step in self.augmentation_used:
+            print('   ', step)
+        print('Validation set left unaugmented.')
+        spacing()
+
+        return train_transform, val_transform
+
     def main(self):
 
         # Method integrating all the functions and training the model
@@ -398,14 +462,13 @@ class AlexNet():
         print(' ')
         print('='*25)
 
-        image_transform = transforms.Compose([transforms.Grayscale(
-            num_output_channels=self.img_size[-1]), transforms.Resize((self.img_size[:-1]), interpolation=transforms.InterpolationMode.BILINEAR), transforms.ToTensor()])
+        train_transform, val_transform = self.build_transforms()
 
         self.train_dataset = torchvision.datasets.ImageFolder(
-            root=self.train_address, transform=image_transform)            # creating the training dataset
+            root=self.train_address, transform=train_transform)            # creating the training dataset
 
         self.val_dataset = torchvision.datasets.ImageFolder(
-            root=self.val_address, transform=image_transform)             # creating the validation dataset
+            root=self.val_address, transform=val_transform)             # creating the validation dataset
 
         # creating the training dataset dataloadet
         self.train_loader = torch.utils.data.DataLoader(
@@ -417,7 +480,9 @@ class AlexNet():
 
         # structured run report -- see ManufacturingNet/reporting/run_report.py
         self.report = RunReport(
-            model_name="AlexNet",
+            # name carries the augmentation setting so the results directory
+            # says which run it was without opening the JSON
+            model_name="AlexNet-aug" if self.augment else "AlexNet",
             class_names=self.train_dataset.classes,
             hyperparameters={
                 "epochs": self.numEpochs,
@@ -430,6 +495,8 @@ class AlexNet():
                 "device": str(self.device),
                 "train_images": len(self.train_dataset),
                 "val_images": len(self.val_dataset),
+                "augment": bool(self.augment),
+                "augmentation": getattr(self, "augmentation_used", None),
             },
         )
 
@@ -458,8 +525,18 @@ class AlexNet():
             save_model = input(
                 'Do you want to save the model weights? (y/n): ').replace(' ','')
             if save_model.lower() == 'y' or save_model.lower() == 'yes':
-                path = 'model_parameters.pth'
+                # Save into this run's own results directory. The previous
+                # behaviour wrote to a fixed 'model_parameters.pth' in the
+                # working directory, so every run silently destroyed the
+                # previous run's weights -- which makes comparing two trained
+                # models impossible.
+                run_dir = getattr(self, 'run_dir', None)
+                if run_dir:
+                    path = os.path.join(run_dir, 'model_parameters.pth')
+                else:
+                    path = 'model_parameters.pth'
                 torch.save(self.net.state_dict(), path)
+                print(f'Model weights saved to {path}')
                 gate = 1
             elif save_model.lower() == 'n' or save_model.lower() == 'no':
                 gate = 1
@@ -691,7 +768,10 @@ class AlexNet():
                                     confidences=confidences,
                                     file_paths=file_paths)
         self.report.print_summary()
-        return self.report.save(output_dir)
+        paths = self.report.save(output_dir)
+        # remember where this run's files went, so the weights land there too
+        self.run_dir = os.path.dirname(paths["results_json"])
+        return paths
 
     def get_prediction(self, x_input):
         """
