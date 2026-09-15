@@ -1,0 +1,5243 @@
+{
+  "schema_version": "1.0",
+  "run": {
+    "model": "AlexNet-aug",
+    "started_at": "2026-09-14T19:11:02.566314+00:00",
+    "finished_at": "2026-09-14T19:18:54.686005+00:00",
+    "duration_seconds": 472.12,
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "notes": null
+  },
+  "hyperparameters": {
+    "epochs": 15,
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "optimizer": "Adam",
+    "criterion": "CrossEntropyLoss",
+    "image_size": [
+      224,
+      224,
+      3
+    ],
+    "pretrained": true,
+    "device": "cuda",
+    "train_images": 6633,
+    "val_images": 715,
+    "augment": true,
+    "augmentation": [
+      "RandomHorizontalFlip(p=0.5)",
+      "RandomVerticalFlip(p=0.5)",
+      "RandomRotation(degrees=20)",
+      "ColorJitter(brightness=0.2, contrast=0.2)"
+    ]
+  },
+  "epochs": [
+    {
+      "epoch": 0,
+      "train_loss": 0.206574,
+      "train_accuracy_pct": 90.607568,
+      "val_loss": 0.048851,
+      "val_accuracy_pct": 98.741259,
+      "seconds": 28.07,
+      "learning_rate": 0.0001
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.120097,
+      "train_accuracy_pct": 95.974672,
+      "val_loss": 0.045855,
+      "val_accuracy_pct": 98.321678,
+      "seconds": 29.12,
+      "learning_rate": 0.0001
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.060128,
+      "train_accuracy_pct": 98.281321,
+      "val_loss": 0.023891,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 33.84,
+      "learning_rate": 0.0001
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.050388,
+      "train_accuracy_pct": 98.6733,
+      "val_loss": 0.078423,
+      "val_accuracy_pct": 97.342657,
+      "seconds": 36.36,
+      "learning_rate": 0.0001
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.076427,
+      "train_accuracy_pct": 97.663199,
+      "val_loss": 0.056902,
+      "val_accuracy_pct": 98.181818,
+      "seconds": 33.58,
+      "learning_rate": 1e-05
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.030059,
+      "train_accuracy_pct": 99.396955,
+      "val_loss": 0.016441,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 34.1,
+      "learning_rate": 1e-05
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.023168,
+      "train_accuracy_pct": 99.53264,
+      "val_loss": 0.017066,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 27.14,
+      "learning_rate": 1e-05
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.023075,
+      "train_accuracy_pct": 99.472335,
+      "val_loss": 0.01969,
+      "val_accuracy_pct": 99.440559,
+      "seconds": 27.73,
+      "learning_rate": 1e-05
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.018586,
+      "train_accuracy_pct": 99.608021,
+      "val_loss": 0.013189,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 28.79,
+      "learning_rate": 1e-05
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.020012,
+      "train_accuracy_pct": 99.547716,
+      "val_loss": 0.014557,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 27.67,
+      "learning_rate": 1.0000000000000002e-06
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.016793,
+      "train_accuracy_pct": 99.668325,
+      "val_loss": 0.015479,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 27.83,
+      "learning_rate": 1.0000000000000002e-06
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.016771,
+      "train_accuracy_pct": 99.623097,
+      "val_loss": 0.013277,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 33.06,
+      "learning_rate": 1.0000000000000002e-06
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.015859,
+      "train_accuracy_pct": 99.592944,
+      "val_loss": 0.013668,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 31.31,
+      "learning_rate": 1.0000000000000002e-06
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.016326,
+      "train_accuracy_pct": 99.592944,
+      "val_loss": 0.013881,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 40.99,
+      "learning_rate": 1.0000000000000002e-06
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.015832,
+      "train_accuracy_pct": 99.592944,
+      "val_loss": 0.013099,
+      "val_accuracy_pct": 99.58042,
+      "seconds": 31.99,
+      "learning_rate": 1.0000000000000002e-07
+    }
+  ],
+  "final_metrics": {
+    "total_samples": 715,
+    "correct": 712,
+    "incorrect": 3,
+    "accuracy_pct": 99.58,
+    "macro_f1": 0.9955,
+    "class_names": [
+      "def_front",
+      "ok_front"
+    ],
+    "confusion_matrix": [
+      [
+        450,
+        3
+      ],
+      [
+        0,
+        262
+      ]
+    ],
+    "confusion_matrix_orientation": "rows=true, cols=predicted",
+    "per_class": [
+      {
+        "class_index": 0,
+        "class_name": "def_front",
+        "true_count": 453,
+        "true_pct": 63.36,
+        "predicted_count": 450,
+        "predicted_pct": 62.94,
+        "precision": 1.0,
+        "recall": 0.9934,
+        "f1": 0.9967,
+        "support": 453
+      },
+      {
+        "class_index": 1,
+        "class_name": "ok_front",
+        "true_count": 262,
+        "true_pct": 36.64,
+        "predicted_count": 265,
+        "predicted_pct": 37.06,
+        "precision": 0.9887,
+        "recall": 1.0,
+        "f1": 0.9943,
+        "support": 262
+      }
+    ],
+    "inspection_summary": {
+      "defect_classes": [
+        "def_front"
+      ],
+      "pieces_inspected": 715,
+      "actual_damaged_count": 453,
+      "actual_damaged_pct": 63.36,
+      "model_flagged_damaged_count": 450,
+      "model_flagged_damaged_pct": 62.94,
+      "true_positive": 450,
+      "false_positive": 0,
+      "false_negative": 3,
+      "true_negative": 262,
+      "missed_damaged_pct": 0.66,
+      "false_alarm_pct": 0.0
+    }
+  },
+  "predictions": [
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1059.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1063.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_108.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1096.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_112.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1134.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1136.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1137.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1153.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1171.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1172.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1174.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_118.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1186.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1189.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1191.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1203.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1211.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1215.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1231.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1233.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1238.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1239.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1258.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1260.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1264.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1269.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1291.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1292.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1294.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1298.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1320.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1323.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1324.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1351.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1352.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1358.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1359.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1376.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1379.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_138.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1381.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1388.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1392.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1394.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1397.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1399.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1400.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1411.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1412.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1413.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1414.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1418.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1421.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1422.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1424.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1425.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_143.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_144.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1443.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1447.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1453.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1462.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1466.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1467.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_147.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1471.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1474.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1476.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1477.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_148.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1480.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1486.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1488.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_149.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1492.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1493.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1497.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1499.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_15.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_150.jpeg",
+      "true": "def_front",
+      "predicted": "ok_front",
+      "correct": false,
+      "confidence": 0.9476
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1500.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1505.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1506.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1507.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1509.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_151.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1510.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1511.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1517.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1518.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1519.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1528.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1529.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1535.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1536.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1539.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_154.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1544.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9958
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1546.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1547.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1553.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1555.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1556.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1560.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1565.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1567.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1568.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1569.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_157.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1570.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1571.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1573.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1574.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1576.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_158.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1583.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1585.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1586.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1589.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_159.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1590.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1591.jpeg",
+      "true": "def_front",
+      "predicted": "ok_front",
+      "correct": false,
+      "confidence": 0.9726
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1593.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1594.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1596.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1599.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_160.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1603.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1607.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.935
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1608.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_161.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9907
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1612.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1613.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1614.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1617.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1618.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_162.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1620.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1625.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1628.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1629.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1633.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1634.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1635.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1636.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1637.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1638.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1639.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_164.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1640.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1642.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1644.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1645.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1647.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1653.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1660.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1661.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1665.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1666.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1677.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1678.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1681.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1682.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1683.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1684.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1685.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1686.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1688.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_174.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_175.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_176.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_181.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_182.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_184.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_186.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1895.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_190.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1903.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_193.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_1935.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_197.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2053.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2084.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2100.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2102.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9949
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2104.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2126.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2135.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2136.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2137.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2154.jpeg",
+      "true": "def_front",
+      "predicted": "ok_front",
+      "correct": false,
+      "confidence": 0.7707
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2155.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9967
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2156.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_216.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2176.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2177.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2179.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_218.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_220.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_221.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2211.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2212.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2215.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_224.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2241.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2244.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2247.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2273.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2274.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2276.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_228.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2299.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_230.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2305.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2308.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2309.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_231.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2319.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2324.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2339.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2341.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2342.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_235.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_236.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2372.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2375.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2376.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2392.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9937
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2393.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2396.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_242.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2420.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2421.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2422.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2442.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2451.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2453.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_246.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_247.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2479.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2480.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2483.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9933
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2486.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2487.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_249.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2509.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2510.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2514.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2515.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2516.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2526.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2528.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2551.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_2553.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_257.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_259.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_26.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_260.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_275.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_28.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_280.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_283.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_290.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_291.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_299.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_302.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_303.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3105.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9983
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3106.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3108.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3121.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3122.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3123.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3387.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3388.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_340.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3412.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3416.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3438.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3446.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3473.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3500.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_3503.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_363.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_367.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_40.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_411.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4133.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4134.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4137.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4156.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9959
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4160.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4164.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4175.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4186.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_4198.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_432.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_434.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_436.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_437.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_439.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_441.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_442.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_450.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_455.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_456.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_457.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_459.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_460.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_461.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_462.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_468.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_480.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_483.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_485.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_486.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_49.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_490.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_491.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_495.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_496.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_499.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_500.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_501.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_504.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_505.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_506.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_507.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_514.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_515.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_519.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_520.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_5251.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_5289.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_5297.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_5302.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_531.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_532.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_534.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_535.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_536.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_537.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_538.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_549.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_551.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_552.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_555.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_558.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_560.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_564.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_586.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_588.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_589.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_590.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_591.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_592.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_594.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_61.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_616.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_617.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_618.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_619.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_620.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_621.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_629.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_641.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_642.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_643.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_645.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_646.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_647.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_648.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_65.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_656.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_659.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_661.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_662.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_663.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_666.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_669.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_67.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_703.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_708.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_715.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_717.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7241.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7271.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_732.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7442.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7454.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7468.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7481.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7596.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7653.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_7659.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_811.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_829.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_831.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_849.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_85.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_87.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_88.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9270.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_939.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9747.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9751.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9758.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_983.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9921.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 0.9987
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9925.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9927.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9960.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9969.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\cast_def_0_9991.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_1339.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_1353.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_1385.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_1664.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_1780.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_2055.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_2091.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_2306.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_2783.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_3255.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_3299.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_3476.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_3539.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_3645.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_3963.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_3973.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_4483.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_4505.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_4633.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_5164.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_5223.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_5231.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_6223.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_6287.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_6459.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_6647.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_6708.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_7229.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_7323.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_7515.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_8133.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_8159.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_8634.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_8737.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_9014.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_9248.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\def_front\\new__0_9334.jpeg",
+      "true": "def_front",
+      "predicted": "def_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_10.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9973
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1001.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9837
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1002.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1003.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9974
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1019.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9981
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1020.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1021.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9978
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1022.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9545
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1026.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9991
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1028.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9958
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1031.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1040.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9949
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1066.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9788
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1069.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9978
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1077.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9977
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1088.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1092.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1093.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1095.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9983
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1096.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1120.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9891
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1121.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.8477
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1127.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9987
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1132.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1134.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1137.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9966
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1140.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9985
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1141.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1144.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1145.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1160.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.981
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1165.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9972
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1169.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9986
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1170.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1171.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9942
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1172.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9972
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1173.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9978
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1174.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1176.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1180.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9892
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1200.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9985
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1202.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1203.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9986
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1207.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9973
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1209.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9986
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1210.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1213.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1218.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9934
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1315.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9988
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1316.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9486
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1318.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9964
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1323.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1326.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1328.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1331.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9925
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1333.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1334.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1343.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9934
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1347.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9982
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1351.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9959
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1368.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.985
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1376.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1381.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9969
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1382.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9914
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1384.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1385.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_14.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9984
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1415.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1420.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1421.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1426.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9601
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1430.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1431.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1438.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9933
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_16.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9784
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1865.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9987
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1891.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9981
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1925.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_1958.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2012.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2272.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2273.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2286.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2291.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2303.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2311.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2330.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9628
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2340.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_235.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9744
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_238.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_239.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9965
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_246.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_259.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9758
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_268.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9953
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2686.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9962
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2687.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2694.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9987
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2698.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2699.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9977
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2700.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9057
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2707.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2708.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2722.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2724.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9991
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2726.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2727.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9914
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2729.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2730.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9988
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2732.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2737.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9927
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2752.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9873
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2754.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9979
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2755.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2758.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9913
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2761.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2765.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9979
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2768.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2769.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2784.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9892
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2786.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2798.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2801.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2803.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9977
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2805.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2807.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9822
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2810.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9973
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2829.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9972
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2831.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2833.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2840.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9957
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2841.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2844.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2848.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2850.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2867.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9956
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2868.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2869.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9462
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2884.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9967
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2885.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9987
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2892.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9989
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2894.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9978
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2900.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2911.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9755
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2914.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2915.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9991
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2917.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9988
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2926.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9985
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2927.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9966
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2932.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_2935.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9982
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_31.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9964
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_3264.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_3278.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9944
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_3292.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_3294.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_4475.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_4476.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9986
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_4497.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_4498.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9944
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_45.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_49.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9982
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_4987.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9965
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_4992.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5009.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9992
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5012.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9986
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_504.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9953
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_505.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_525.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_526.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5530.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5533.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5541.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5560.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9991
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5567.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9974
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5587.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5590.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5605.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9975
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5606.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9988
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5805.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5809.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9988
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_5815.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9973
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_62.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9753
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_6365.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_6388.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_64.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_6401.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9947
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_6681.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9989
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_6682.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_6714.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_6718.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9991
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7044.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9969
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7089.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7559.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7560.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9895
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7588.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7595.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7611.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7624.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7631.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7632.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9989
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7820.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7823.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7839.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.937
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7849.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7900.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7901.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9988
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7925.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7931.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9991
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7936.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9745
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7939.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9971
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7945.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7946.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9939
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_7997.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9934
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8008.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8010.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9985
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8011.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8172.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8177.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8189.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9981
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8192.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8611.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8612.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8614.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_863.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9986
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8637.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_864.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9956
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8644.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9981
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_8652.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_869.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9994
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_880.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9973
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_897.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9987
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_903.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_904.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9986
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_907.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9969
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_925.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_927.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9929
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_932.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9962
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_935.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_937.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_942.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_952.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9977
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_960.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_973.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9953
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_975.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_976.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9978
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_989.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9971
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9918.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9961
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9920.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9925.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9998
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9926.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9508
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9928.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9934.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9997
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9943.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9955.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9993
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9961.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9983
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9967.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9988
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9973.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9996
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9975.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 1.0
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_998.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9988.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9993.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9999
+    },
+    {
+      "file": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\data\\val\\ok_front\\cast_ok_0_9996.jpeg",
+      "true": "ok_front",
+      "predicted": "ok_front",
+      "correct": true,
+      "confidence": 0.9995
+    }
+  ]
+}

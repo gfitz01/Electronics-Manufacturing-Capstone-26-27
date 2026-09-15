@@ -29,9 +29,11 @@ env/
 #
 #     python -c "from ManufacturingNet.datasets import CastingData; CastingData()"
 #     python prepare_data.py casting_data
+#     python make_clean_split.py          # -> data_clean/, the leak-free split
 # ---------------------------------------------------------------------------
 casting_data/
 data/
+data_clean/
 data_small/
 raw/
 *.zip
