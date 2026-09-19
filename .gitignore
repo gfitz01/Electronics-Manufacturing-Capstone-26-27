@@ -39,6 +39,28 @@ raw/
 *.zip
 
 # ---------------------------------------------------------------------------
+# Stage-two dataset, built by build_defect_classes.py. It is a COPY of the
+# defect images already in data_clean/, sorted into two folders -- roughly
+# 4,200 files that regenerate in under a minute:
+#
+#     python build_defect_classes.py
+#
+# The cluster_assignments.csv and contact sheets under defect_types/ ARE
+# tracked: those are the evidence for how the split was made.
+# ---------------------------------------------------------------------------
+defect_classes/
+
+# Stage-two folders built by make_defect_type_folders.py -- four copies of the
+# 200 labelled castings, one per defect question. Regenerates in seconds from
+# defect_types/blind_key_r2.csv plus your my_labels CSV, both of which ARE
+# tracked. The labels are the irreplaceable part, not the folders.
+defect_type_front/
+
+# The blind labelling sheet embeds 100 full-size castings as base64 and runs
+# to several MB. blind_key.csv beside it is the part worth keeping.
+defect_types/blind_labels*.html
+
+# ---------------------------------------------------------------------------
 # Trained model weights. model_parameters.pth is ~217 MB -- GitHub rejects any
 # file over 100 MB outright, so committing this does not just bloat the repo,
 # it blocks the push entirely. Use GitHub Releases or a shared drive if a
@@ -47,6 +69,11 @@ raw/
 *.pth
 *.pt
 *.ckpt
+
+# Extracted feature matrices (discover_defect_types.py). ~4,200 castings x
+# 4096 dimensions is roughly 69 MB, and it regenerates in under a minute.
+# The contact sheet and cluster_assignments.csv beside it ARE worth keeping.
+*.npy
 
 # ---------------------------------------------------------------------------
 # Plots written to the repo root by the training loop on every run. The same
