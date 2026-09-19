@@ -6,6 +6,11 @@
     python run.py clean            leak-free dataset, no augmentation
     python run.py clean augment    leak-free dataset, with augmentation
 
+    python run.py --data defect_type_front/fray augment
+                                   any directory holding train/ and val/,
+                                   which is how the stage-two defect-type
+                                   folders are trained
+
 The 'clean' dataset is data_clean/, built by make_clean_split.py: the
 published test split contains 64 images byte-identical to training images,
 so those are removed from TRAINING and the 715-image validation set is left
@@ -63,13 +68,32 @@ from pathlib import Path
 
 from ManufacturingNet.models import AlexNet
 
-flags = [a.lower().lstrip("-") for a in sys.argv[1:]]
+argv = sys.argv[1:]
+data_dir, rest, i = None, [], 0
+while i < len(argv):
+    a = argv[i]
+    if a in ("--data", "-d"):
+        i += 1
+        if i >= len(argv):
+            raise SystemExit("--data needs a directory containing train/ and val/")
+        data_dir = argv[i]
+    elif a.startswith("--data="):
+        data_dir = a.split("=", 1)[1]
+    else:
+        rest.append(a)
+    i += 1
+
+flags = [a.lower().lstrip("-") for a in rest]
 full = "full" in flags
 clean = "clean" in flags
 augment = "augment" in flags or "aug" in flags
 
 HERE = Path(__file__).resolve().parent
-if clean:
+if data_dir:
+    dataset = Path(data_dir)
+    if not dataset.is_absolute():
+        dataset = HERE / dataset
+elif clean:
     dataset = HERE / "data_clean"     # duplicates removed from training
 elif full:
     dataset = HERE / "data"
@@ -82,8 +106,10 @@ val_dir = dataset / "val"
 for directory in (train_dir, val_dir):
     if not directory.is_dir():
         raise SystemExit(
-            f"Missing {directory}\n"
-            "Run:  python prepare_data.py casting_data"
+            f"Missing {directory}\n" + (
+                "A --data directory must contain train/ and val/ subfolders."
+                if data_dir else
+                "Run:  python prepare_data.py casting_data")
         )
 
 print("=" * 60)
