@@ -29,11 +29,15 @@ env/
 #
 #     python -c "from ManufacturingNet.datasets import CastingData; CastingData()"
 #     python prepare_data.py casting_data
-#     python make_clean_split.py          # -> data_clean/, the leak-free split
+#     python make_clean_split.py          # -> data_clean/
+#     python check_rotations.py           # -> rotation_duplicates.csv
+#     python make_grouped_split.py        # -> data_grouped/, no casting
+#                                         #    on both sides of the split
 # ---------------------------------------------------------------------------
 casting_data/
 data/
 data_clean/
+data_grouped/
 data_small/
 raw/
 *.zip

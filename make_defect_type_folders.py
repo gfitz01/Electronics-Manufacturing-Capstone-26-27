@@ -80,6 +80,13 @@ def norm(p):
     return Path(str(p).replace("\\", "/"))
 
 
+def tail(p):
+    """split/class/filename. The source dataset reuses filenames across its
+    train and test folders for DIFFERENT images (44 among def_front alone), so
+    a bare filename is not a unique key. Always join on this instead."""
+    return "/".join(norm(p).parts[-3:])
+
+
 def load(key_path, labels_path):
     key = {}
     with open(key_path, newline="") as f:
@@ -115,10 +122,10 @@ def families(dup_path, files):
         return {f: f for f in files}, False
     byname = defaultdict(list)
     for f in files:
-        byname[Path(f).name].append(f)
+        byname[tail(f)].append(f)
     with open(dup_path, newline="") as fh:
         for row in csv.DictReader(fh):
-            a, b = norm(row["file_a"]).name, norm(row["file_b"]).name
+            a, b = tail(row["file_a"]), tail(row["file_b"])
             if a in byname and b in byname:
                 ra, rb = find(byname[a][0]), find(byname[b][0])
                 if ra != rb:

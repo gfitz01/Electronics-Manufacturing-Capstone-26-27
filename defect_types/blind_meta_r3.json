@@ -1,0 +1,26 @@
+{
+  "tag": "r3",
+  "flags": [
+    "fray",
+    "chip",
+    "spot",
+    "slash"
+  ],
+  "primary": "spot",
+  "grouping": {
+    "1": "B",
+    "0": "A"
+  },
+  "group_sizes": {
+    "B": 2883,
+    "A": 1328
+  },
+  "total_defects": 4211,
+  "sampling": "shortlist",
+  "sample_per_group": null,
+  "sample_by_group": {
+    "A": 59,
+    "B": 141
+  },
+  "seed": 11
+}

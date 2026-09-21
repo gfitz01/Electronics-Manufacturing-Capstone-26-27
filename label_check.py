@@ -231,6 +231,11 @@ def build(args):
         print(f"  From shortlist: {len(picked)} castings the model finds")
         print("  ambiguous, instead of a random sample.\n")
         rng.shuffle(picked)
+        # A shortlist round is deliberately NOT balanced across the two
+        # groups -- it takes whatever the model finds ambiguous. Record that
+        # rather than a per-group count that would not be true.
+        per_group = None
+        sampling = "shortlist"
     else:
         per_group = args.n // 2
         picked = []
@@ -240,6 +245,7 @@ def build(args):
                 raise SystemExit(f"cluster {group} has only {len(pool)} images")
             picked.extend((i, group) for i in rng.sample(pool, per_group))
         rng.shuffle(picked)
+        sampling = "balanced"
 
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -258,7 +264,10 @@ def build(args):
         "grouping": {str(k): v for k, v in grouping.items()},
         "group_sizes": {grouping[k]: int(v) for k, v in sizes.items()},
         "total_defects": int(len(paths)),
+        "sampling": sampling,
         "sample_per_group": per_group,
+        "sample_by_group": {grouping[g]: n for g, n
+                            in Counter(g for _, g in picked).items()},
         "seed": args.seed,
     }, indent=2), encoding="utf-8")
 
@@ -281,15 +290,24 @@ def build(args):
             .replace("__TOGGLES__", toggles)
             .replace("__KEYMAP__", keymap)
             .replace("__FLAGS__", json.dumps(FLAG_NAMES))
-            .replace("__N__", str(args.n))
+            .replace("__N__", str(len(picked)))
             .replace("__PRIMARY__", args.primary))
     (out / f"blind_labels{tag}.html").write_text(html, encoding="utf-8")
 
     print(f"  {out/f'blind_labels{tag}.html'}   <- open this")
     print(f"  {out/f'blind_key{tag}.csv'}       <- do NOT open until done")
     print()
-    print(f"{args.n} castings, {per_group} from each group, shuffled "
-          f"(seed {args.seed}).")
+    if per_group is not None:
+        print(f"{len(picked)} castings, {per_group} from each group, shuffled "
+              f"(seed {args.seed}).")
+    else:
+        by = Counter(grouping[g] for _, g in picked)
+        print(f"{len(picked)} castings from the shortlist "
+              f"({', '.join(f'{v} from {k}' for k, v in sorted(by.items()))}), "
+              f"shuffled (seed {args.seed}).")
+        print("This sample is NOT balanced across the groups by design -- it is")
+        print("whatever the model found ambiguous. Use it for labels to train")
+        print("on, not for the group comparison, which assumes balance.")
     print(f"Primary test, fixed now: {args.primary}. The rest are exploratory.")
     print()
     print("Keys: 1-4 toggle a defect on or off, SPACE or ENTER moves on,")
