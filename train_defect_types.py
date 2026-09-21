@@ -83,6 +83,13 @@ def norm(p):
     return Path(str(p).replace("\\", "/"))
 
 
+def tail(p):
+    """split/class/filename. The source dataset reuses filenames across its
+    train and test folders for DIFFERENT images (44 among def_front alone), so
+    a bare filename is not a unique key. Always join on this instead."""
+    return "/".join(norm(p).parts[-3:])
+
+
 # --------------------------------------------------------------------------
 # data
 # --------------------------------------------------------------------------
@@ -118,6 +125,39 @@ def load_labels(key_path, labels_path):
     return out
 
 
+def load_rounds(rounds, out_dir="defect_types"):
+    """Merge several labelling rounds into one training set.
+
+    Each round is a (blind_key_<tag>.csv, labels_<tag>.csv) pair. Ids restart
+    at 1 every round, so they are joined per round and keyed by file path --
+    joining on id across rounds would silently mislabel everything.
+
+    If a casting somehow appears twice, the later round wins: the shortlist
+    excludes already-labelled castings, so an overlap means something was
+    relabelled deliberately.
+    """
+    seen, per_round = {}, []
+    for tag in rounds:
+        k = Path(out_dir) / f"blind_key_{tag}.csv"
+        l = Path(out_dir) / f"labels_{tag}.csv"
+        if not k.is_file() or not l.is_file():
+            have = sorted(p.name for p in Path(out_dir).glob("labels_*.csv"))
+            raise SystemExit(
+                f"Round '{tag}' needs both {k.name} and {l.name}.\n"
+                f"Label files present: {have or 'none'}\n"
+                f"After labelling, rename the download to {l.name}.")
+        rows = load_labels(k, l)
+        before = len(seen)
+        for f, y in rows:
+            seen[f] = y
+        per_round.append((tag, len(rows), len(seen) - before))
+    for tag, n, added in per_round:
+        dup = n - added
+        print(f"    round {tag}: {n} labelled"
+              + (f"  ({dup} already seen, later round kept)" if dup else ""))
+    return list(seen.items())
+
+
 def duplicate_groups(dup_path, files):
     """file -> family id, so rotations of one casting stay in one fold."""
     parent = {f: f for f in files}
@@ -133,12 +173,12 @@ def duplicate_groups(dup_path, files):
         return None, 0
     byname = {}
     for f in files:
-        byname.setdefault(Path(f).name, []).append(f)
+        byname.setdefault(tail(f), []).append(f)
     merged = 0
     with open(dup_path, newline="") as f:
         for row in csv.DictReader(f):
-            a = norm(row["file_a"]).name
-            b = norm(row["file_b"]).name
+            a = tail(row["file_a"])
+            b = tail(row["file_b"])
             if a in byname and b in byname:
                 join(byname[a][0], byname[b][0]); merged += 1
     return {f: find(f) for f in files}, merged
@@ -341,6 +381,10 @@ def cv(items, groups, args, device, sizes):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--rounds", default=None,
+                    help="comma-separated labelling rounds to train on, e.g. "
+                         "r2,r3 -- reads defect_types/blind_key_<tag>.csv and "
+                         "labels_<tag>.csv for each and merges them.")
     ap.add_argument("--key", default="defect_types/blind_key_r2.csv")
     ap.add_argument("--labels", default="defect_types/labels_r2.csv")
     ap.add_argument("--duplicates", default="rotation_duplicates.csv")
@@ -377,7 +421,12 @@ def main():
         raise SystemExit(f"Missing {args.labels}\n"
                          f"Candidates: {[str(c) for c in cands] or 'none'}\n"
                          "Pass one with --labels")
-    items = load_labels(args.key, args.labels)
+    if args.rounds:
+        tags = [t.strip() for t in args.rounds.split(",") if t.strip()]
+        print(f"Rounds        : {', '.join(tags)}")
+        items = load_rounds(tags, str(Path(args.key).parent))
+    else:
+        items = load_labels(args.key, args.labels)
     if not items:
         raise SystemExit("No usable labelled castings.")
 
@@ -420,7 +469,13 @@ def main():
     results = cv(items, groups, args, device, sizes)
 
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
-    (out / "results.json").write_text(json.dumps(results, indent=2, default=str))
+    # A permutation run is a diagnostic, not a result. Writing it to
+    # results.json would let downstream tools read a deliberately broken score
+    # as the real one -- which is exactly what happened: apply_defect_types.py
+    # picked its shortlist flag by "weakest AUC" and found fray at 0.456.
+    name = f"results_permuted_{args.permute}.json" if args.permute else "results.json"
+    (out / name).write_text(json.dumps(results, indent=2, default=str))
+    print(f"\n  wrote {out/name}")
 
     print("\n" + "=" * 70)
     print("  AUC by flag and training-set size   (0.50 = chance, 1.00 = perfect)")

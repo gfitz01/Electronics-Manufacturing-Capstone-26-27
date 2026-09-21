@@ -67,6 +67,13 @@ def norm(p):
     return Path(str(p).replace("\\", "/"))
 
 
+def tail(p):
+    """split/class/filename. The source dataset reuses filenames across its
+    train and test folders for DIFFERENT images (44 among def_front alone), so
+    a bare filename is not a unique key. Always join on this instead."""
+    return "/".join(norm(p).parts[-3:])
+
+
 def load_labels(key_path, labels_path):
     key = {}
     with open(key_path, newline="") as f:
@@ -89,6 +96,39 @@ def load_labels(key_path, labels_path):
     return out
 
 
+def load_rounds(rounds, out_dir="defect_types"):
+    """Merge several labelling rounds into one training set.
+
+    Each round is a (blind_key_<tag>.csv, labels_<tag>.csv) pair. Ids restart
+    at 1 every round, so they are joined per round and keyed by file path --
+    joining on id across rounds would silently mislabel everything.
+
+    If a casting somehow appears twice, the later round wins: the shortlist
+    excludes already-labelled castings, so an overlap means something was
+    relabelled deliberately.
+    """
+    seen, per_round = {}, []
+    for tag in rounds:
+        k = Path(out_dir) / f"blind_key_{tag}.csv"
+        l = Path(out_dir) / f"labels_{tag}.csv"
+        if not k.is_file() or not l.is_file():
+            have = sorted(p.name for p in Path(out_dir).glob("labels_*.csv"))
+            raise SystemExit(
+                f"Round '{tag}' needs both {k.name} and {l.name}.\n"
+                f"Label files present: {have or 'none'}\n"
+                f"After labelling, rename the download to {l.name}.")
+        rows = load_labels(k, l)
+        before = len(seen)
+        for f, y in rows:
+            seen[f] = y
+        per_round.append((tag, len(rows), len(seen) - before))
+    for tag, n, added in per_round:
+        dup = n - added
+        print(f"    round {tag}: {n} labelled"
+              + (f"  ({dup} already seen, later round kept)" if dup else ""))
+    return list(seen.items())
+
+
 def all_defects(data, class_name):
     found = []
     for split in ("train", "val"):
@@ -104,6 +144,10 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", default="data_clean")
     ap.add_argument("--class-name", default="def_front")
+    ap.add_argument("--rounds", default=None,
+                    help="comma-separated labelling rounds to train on, e.g. "
+                         "r2,r3 -- reads defect_types/blind_key_<tag>.csv and "
+                         "labels_<tag>.csv for each and merges them.")
     ap.add_argument("--key", default="defect_types/blind_key_r2.csv")
     ap.add_argument("--labels", default="defect_types/labels_r2.csv")
     ap.add_argument("--arch", default="alexnet", choices=["alexnet", "resnet18"])
@@ -129,7 +173,12 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     torch.manual_seed(args.seed)
 
-    items = load_labels(args.key, args.labels)
+    if args.rounds:
+        tags = [t.strip() for t in args.rounds.split(",") if t.strip()]
+        print(f"Rounds      : {', '.join(tags)}")
+        items = load_rounds(tags, str(Path(args.key).parent))
+    else:
+        items = load_labels(args.key, args.labels)
     if not items:
         raise SystemExit("No labels found.")
     Y = np.array([y for _, y in items], dtype=np.float32)
@@ -141,7 +190,7 @@ def main():
     everything = all_defects(args.data, args.class_name)
     if not everything:
         raise SystemExit(f"No images under {args.data}/*/{args.class_name}/")
-    labelled = {Path(f).name for f, _ in items}
+    labelled = {tail(f) for f, _ in items}
     print(f"\nPredicting  : {len(everything)} defective castings "
           f"({len(everything)-len(labelled)} of them never labelled)")
 
@@ -166,7 +215,7 @@ def main():
             opt.zero_grad()
             loss = crit(model(x), y)
             loss.backward(); opt.step()
-            tot += float(loss) * len(x)
+            tot += loss.item() * len(x)
         sched.step()
         if (ep + 1) % 10 == 0 or ep == 0:
             print(f"\r  epoch {ep+1}/{args.epochs}  loss {tot/len(items):.4f}",
@@ -190,7 +239,7 @@ def main():
     print(f"\r  {len(paths)}/{len(paths)}")
 
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
-    was_labelled = [Path(p).name in labelled for p in paths]
+    was_labelled = [tail(p) in labelled for p in paths]
     with open(out / "predicted.csv", "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["file", "split", "hand_labelled"] + [f"p_{x}" for x in FLAGS])
@@ -199,26 +248,65 @@ def main():
 
     # ---------------- what it thinks is out there ----------------
     fresh = ~np.array(was_labelled)
+
+    # The hand-labelled 200 were NOT a representative sample: they were drawn
+    # evenly from the two clusters, while the population is split unevenly.
+    # Comparing the model's rate over 4,211 against the raw rate over those
+    # 200 compares two different populations and makes the model look wrong.
+    corrected = {}
+    meta = Path(args.key).parent / "blind_meta_r2.json"
+    grp = {}
+    try:
+        gk = {}
+        with open(args.key, newline="") as f:
+            for row in csv.DictReader(f):
+                gk[str(norm(row["file"]))] = row.get("group", "?")
+        sizes = json.loads(meta.read_text())["group_sizes"]
+        total = sum(sizes.values())
+        for k, fl in enumerate(FLAGS):
+            acc = 0.0
+            for g, n in sizes.items():
+                rows = [y[k] for (fp, y) in items if gk.get(fp) == g]
+                if rows:
+                    acc += (n / total) * (sum(rows) / len(rows))
+            corrected[fl] = acc
+    except Exception:
+        corrected = {}
+
     print()
-    print("=" * 68)
+    print("=" * 74)
     print("  ESTIMATED defect rates across all defective castings")
-    print("=" * 68)
-    print(f"    {'flag':<8}{'predicted':>11}{'hand-labelled':>16}"
-          f"{'agreement check':>18}")
+    print("=" * 74)
+    hdr = f"    {'flag':<8}{'model says':>13}"
+    if corrected:
+        hdr += f"{'hand labels,':>16}{'gap':>8}"
+    hdr += f"{'hand labels,':>16}"
+    print(hdr)
+    print(f"    {'':<8}{'(all 4211)':>13}"
+          + (f"{'pop-corrected':>16}{'':>8}" if corrected else "")
+          + f"{'raw 200':>16}")
     for k, f in enumerate(FLAGS):
         pred_all = float((P[:, k] >= 0.5).mean())
-        hand = float(Y[:, k].mean())
-        on_hand = float((P[np.array(was_labelled), k] >= 0.5).mean()) \
-            if any(was_labelled) else float("nan")
-        print(f"    {f:<8}{100*pred_all:>10.1f}%{100*hand:>15.1f}%"
-              f"{100*on_hand:>17.1f}%")
+        raw = float(Y[:, k].mean())
+        line = f"    {f:<8}{100*pred_all:>12.1f}%"
+        if corrected:
+            c = corrected[f]
+            line += f"{100*c:>15.1f}%{100*(pred_all-c):>+8.1f}"
+        line += f"{100*raw:>15.1f}%"
+        print(line)
     print()
-    print("  Column 2 is the model's guess over all 4,211. Column 3 is the")
-    print("  truth on the 200 you labelled. Column 4 is what the model says")
-    print("  about those same 200 -- it trained on them, so it should match")
-    print("  column 3 closely. If it does not, something is wrong; if it does,")
-    print("  that only proves it memorised its training set, not that column 2")
-    print("  is right. Trust column 2 to about the accuracy the pilot measured.")
+    if corrected:
+        print("  Compare column 2 to column 3, NOT to the raw 200. Those 200")
+        print("  were drawn evenly from the two clusters while the real split is")
+        print("  uneven, so their raw rates describe a different population.")
+        print("  Column 3 reweights them back to the full defect set.")
+        print()
+        print("  A positive gap on a rare flag is expected: pos_weight pushes")
+        print("  the model toward calling the rarer class, by design. Check it")
+        print("  against each flag's pos_weight before reading it as an error.")
+    else:
+        print("  Could not reweight (missing blind_meta_r2.json), so the last")
+        print("  column is the raw sample rate and is NOT directly comparable.")
 
     # ---------------- the shortlist ----------------
     focus = args.focus
