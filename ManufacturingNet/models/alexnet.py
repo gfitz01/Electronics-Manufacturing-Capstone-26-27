@@ -1,6 +1,7 @@
 import datetime
 import os
 import sys
+import tempfile
 import time
 
 import matplotlib.pyplot as plt
@@ -21,6 +22,53 @@ from torchvision import transforms
 from torchvision.models import alexnet, AlexNet_Weights
 from ManufacturingNet.models._backbone_utils import adapt_first_conv
 from ManufacturingNet.reporting import RunReport
+
+
+class EarlyStopper:
+    """Decides when training has stopped improving.
+
+    Watches one number per epoch -- the loss on a held-out set -- and counts
+    epochs since the best one. `patience` epochs without a better result means
+    training has finished learning and is only fitting the training images
+    harder, so it stops.
+
+    A note on which set to watch. Stopping on the set you report accuracy on
+    quietly biases that accuracy: you are choosing, out of 100 candidate
+    models, the one that happens to score best on the test. Give it a separate
+    dev set carved out of TRAINING (make_grouped_split.py --dev-frac) and the
+    test set stays untouched.
+
+    min_delta guards against stopping on noise: an improvement smaller than it
+    does not reset the counter.
+    """
+
+    def __init__(self, patience, min_delta=0.0):
+        self.patience = patience
+        self.min_delta = float(min_delta)
+        self.best = float("inf")
+        self.best_epoch = None
+        self.epochs_since_best = 0
+
+    def update(self, epoch, loss):
+        """Record one epoch. True when it is the new best."""
+        if loss is None:
+            return False
+        if loss < self.best - self.min_delta:
+            self.best = float(loss)
+            self.best_epoch = int(epoch)
+            self.epochs_since_best = 0
+            return True
+        self.epochs_since_best += 1
+        return False
+
+    @property
+    def should_stop(self):
+        return (self.patience is not None
+                and self.epochs_since_best >= self.patience)
+
+
+def _round_6(value):
+    return None if value is None else round(float(value), 6)
 
 
 def conv2D_output_size(img_size, kernel_size, stride, padding):
@@ -78,7 +126,8 @@ class AlexNet():
     """
 
     def __init__(self, train_data_address, val_data_address, shuffle=True,
-                 augment=False):
+                 augment=False, dev_data_address=None, patience=None,
+                 min_delta=0.0, restore_best=True):
 
         # Lists used in the functions below
         self.criterion_list = {1: nn.CrossEntropyLoss(), 2: torch.nn.L1Loss(
@@ -90,6 +139,23 @@ class AlexNet():
         # augment=True applies random flips, rotation and brightness/contrast
         # jitter to the TRAINING images only. See build_transforms().
         self.augment = augment
+
+        # Early stopping. patience=None trains for the full number of epochs,
+        # which is what this library has always done. With a patience, the
+        # number of epochs asked for becomes a ceiling: training ends once the
+        # watched loss has not improved for that many epochs, and the weights
+        # from the best epoch are restored (restore_best), instead of the last
+        # epoch's -- which is what gets saved otherwise, best or not.
+        #
+        # dev_data_address is the set to watch: a folder of images held out of
+        # training, NOT the validation set the final metrics come from. Leave
+        # it None and the validation set is watched instead, which trains fine
+        # but makes the reported accuracy slightly optimistic; the run warns
+        # and records which set it used.
+        self.dev_address = dev_data_address
+        self.patience = patience
+        self.min_delta = min_delta
+        self.restore_best = restore_best
 
         self.get_default_paramters()            # getting default parameters argument
 
@@ -478,6 +544,24 @@ class AlexNet():
         self.dev_loader = torch.utils.data.DataLoader(
             self.val_dataset, batch_size=self.batchsize)
 
+        # the early-stopping watch set, if one was given
+        self.earlystop_dataset = None
+        self.earlystop_loader = None
+        if self.patience is not None and self.dev_address:
+            self.earlystop_dataset = torchvision.datasets.ImageFolder(
+                root=self.dev_address, transform=val_transform)
+            self.earlystop_loader = torch.utils.data.DataLoader(
+                self.earlystop_dataset, batch_size=self.batchsize)
+            print(f'Early stopping watches {len(self.earlystop_dataset)} '
+                  f'images in {self.dev_address}')
+        elif self.patience is not None:
+            print('Early stopping watches the VALIDATION set, because no dev '
+                  'set was given.')
+            print('  The reported accuracy is then slightly optimistic: the '
+                  'stopping epoch')
+            print('  was chosen using the same images. Pass a dev folder to '
+                  'avoid that.')
+
         # structured run report -- see ManufacturingNet/reporting/run_report.py
         self.report = RunReport(
             # name carries the augmentation setting so the results directory
@@ -497,6 +581,10 @@ class AlexNet():
                 "val_images": len(self.val_dataset),
                 "augment": bool(self.augment),
                 "augmentation": getattr(self, "augmentation_used", None),
+                "epochs_requested": self.numEpochs,
+                "early_stopping_patience": self.patience,
+                "dev_images": (len(self.earlystop_dataset)
+                               if self.earlystop_dataset is not None else None),
             },
         )
 
@@ -569,6 +657,19 @@ class AlexNet():
 
         print('Training the model...')
 
+        stopper = (EarlyStopper(self.patience, self.min_delta)
+                   if self.patience is not None else None)
+        # The best epoch's weights go to a scratch file rather than staying in
+        # RAM. A copy of this network is ~230 MB, and holding one (briefly two,
+        # while copying) alongside training is enough to push a busy machine
+        # into swapping or being killed outright.
+        best_path = (os.path.join(tempfile.gettempdir(),
+                                  f'alexnet_best_{os.getpid()}.pth')
+                     if stopper is not None and self.restore_best else None)
+        have_best = False
+        self.stopped_early = False
+        epochs_run = 0
+
         for epoch in range(self.numEpochs):
 
             start_time = time.time()
@@ -619,6 +720,16 @@ class AlexNet():
 
             dev_loss, dev_acc = self.validate_model()
 
+            # the number early stopping watches: the held-out dev set when
+            # there is one, the validation set otherwise
+            if self.earlystop_loader is not None:
+                watch_loss, watch_acc = self._evaluate(self.earlystop_loader)
+                print('Dev Loss: ', watch_loss)
+                if watch_acc is not None:
+                    print('Dev Accuracy: ', watch_acc, '%')
+            else:
+                watch_loss, watch_acc = dev_loss, dev_acc
+
             if self.scheduler_input != '1':
 
                 self.scheduler.step()
@@ -629,6 +740,7 @@ class AlexNet():
             print('#'*50)
 
             self.dev_loss.append(dev_loss)
+            epochs_run = epoch + 1
 
             # saving the epoch validation accuracy only if the loss function is Cross entropy
             if self.criterion_input == '1':
@@ -644,12 +756,111 @@ class AlexNet():
                     val_accuracy=dev_acc if self.criterion_input == '1' else None,
                     seconds=end_time - start_time,
                     learning_rate=self.optimizer.param_groups[0]['lr'],
+                    dev_loss=(watch_loss if self.earlystop_loader is not None
+                              else None),
+                    dev_accuracy=(watch_acc if self.earlystop_loader is not None
+                                  else None),
                 )
+
+            if stopper is None:
+                continue
+
+            improved = stopper.update(epoch, watch_loss)
+            if improved and best_path:
+                # the last epoch is not usually the best one, and the last is
+                # what this library saves unless something keeps the best
+                torch.save(self.net.state_dict(), best_path)
+                have_best = True
+            print(f'Best so far: epoch {stopper.best_epoch} '
+                  f'({stopper.best:.6f}); {stopper.epochs_since_best} epoch(s) '
+                  f'since. Stopping at {self.patience}.')
+
+            if stopper.should_stop:
+                print(f'Early stop: no improvement for {self.patience} epochs '
+                      f'(best was epoch {stopper.best_epoch}, '
+                      f'loss {stopper.best:.6f}).')
+                self.stopped_early = True
+                break
+
+        self._finish_early_stopping(stopper, best_path if have_best else None,
+                                    epochs_run)
+
+    def _finish_early_stopping(self, stopper, best_path, epochs_run):
+        """Put the best weights back and record how training ended."""
+        if stopper is None:
+            return
+
+        restored = False
+        if (self.restore_best and best_path
+                and stopper.best_epoch != epochs_run - 1):
+            print(f'Restoring the weights from epoch {stopper.best_epoch}, '
+                  'the best one.')
+            self.net.load_state_dict(
+                torch.load(best_path, map_location=self.device))
+            self.net.to(self.device)
+            restored = True
+            # the final metrics, confusion matrix and saved weights must all
+            # describe the model that is actually kept
+            self.validate_model()
+
+        if getattr(self, "report", None) is not None:
+            self.report.set_early_stopping(
+                patience=self.patience,
+                min_delta=self.min_delta,
+                watched_set=('dev' if self.earlystop_loader is not None
+                             else 'val'),
+                watched_images=(len(self.earlystop_dataset)
+                                if self.earlystop_dataset is not None
+                                else len(self.val_dataset)),
+                best_epoch=stopper.best_epoch,
+                best_watched_loss=_round_6(stopper.best),
+                epochs_run=epochs_run,
+                epochs_requested=self.numEpochs,
+                stopped_early=self.stopped_early,
+                restored_best_weights=restored,
+            )
+
+        if best_path and os.path.exists(best_path):
+            try:
+                os.remove(best_path)
+            except OSError:
+                pass
+
+    def _evaluate(self, loader):
+        """Loss and accuracy on a loader, with no side effects.
+
+        validate_model() also records predictions and confidences for the
+        final report, so it cannot be reused for the per-epoch early-stopping
+        check without overwriting them."""
+        self.net.eval()
+        running_loss = 0.0
+        total_predictions = 0.0
+        correct_predictions = 0.0
+        with torch.no_grad():
+            for data, target in loader:
+                data = data.float().to(self.device)
+                target = target.to(self.device)
+                outputs = self.net(data)
+                if self.criterion_input == '1':
+                    loss = self.criterion(outputs, target.long())
+                    _, predicted = torch.max(outputs.data, 1)
+                    total_predictions += target.size(0)
+                    correct_predictions += (predicted == target).sum().item()
+                else:
+                    loss = self.criterion(outputs, target)
+                running_loss += loss.item()
+        running_loss /= max(len(loader), 1)
+        acc = ((correct_predictions / total_predictions) * 100.0
+               if total_predictions else None)
+        return running_loss, acc
 
     def validate_model(self):
 
-        with torch.no_grad():
-            self.net.eval()
+        # eval() first, then run the whole pass inside no_grad(). It used to be
+        # the other way round -- no_grad() wrapped only the eval() call -- so
+        # validation built a graph for every batch it would never backprop
+        # through, spending memory and time for nothing.
+        self.net.eval()
         running_loss = 0.0
         total_predictions = 0.0
         correct_predictions = 0.0
@@ -658,29 +869,30 @@ class AlexNet():
         self.predict = []
         self.confidence = []
 
-        for batch_idx, (data, target) in enumerate(self.dev_loader):
+        with torch.no_grad():
+            for batch_idx, (data, target) in enumerate(self.dev_loader):
 
-            data = data.float().to(self.device)
-            target = target.to(self.device)
-            outputs = self.net(data)
+                data = data.float().to(self.device)
+                target = target.to(self.device)
+                outputs = self.net(data)
 
-            if self.criterion_input == '1':
+                if self.criterion_input == '1':
 
-                loss = self.criterion(outputs, target.long())
-                _, predicted = torch.max(outputs.data, 1)
-                total_predictions += target.size(0)
-                correct_predictions += (predicted == target).sum().item()
-                self.predict.append(predicted.detach().cpu().numpy())
-                # softmax confidence of the winning class, for the report
-                probabilities = F.softmax(outputs.detach(), dim=1)
-                self.confidence.append(
-                    probabilities.max(dim=1).values.cpu().numpy())
+                    loss = self.criterion(outputs, target.long())
+                    _, predicted = torch.max(outputs.data, 1)
+                    total_predictions += target.size(0)
+                    correct_predictions += (predicted == target).sum().item()
+                    self.predict.append(predicted.detach().cpu().numpy())
+                    # softmax confidence of the winning class, for the report
+                    probabilities = F.softmax(outputs.detach(), dim=1)
+                    self.confidence.append(
+                        probabilities.max(dim=1).values.cpu().numpy())
 
-            else:
-                loss = self.criterion(outputs, target)
-                self.predict.append(outputs.detach().cpu().numpy())
-            running_loss += loss.item()
-            self.actual.append(target.detach().cpu().numpy())
+                else:
+                    loss = self.criterion(outputs, target)
+                    self.predict.append(outputs.detach().cpu().numpy())
+                running_loss += loss.item()
+                self.actual.append(target.detach().cpu().numpy())
 
         running_loss /= len(self.dev_loader)
         print('Validation Loss: ', running_loss)

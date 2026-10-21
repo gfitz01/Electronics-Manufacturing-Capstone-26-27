@@ -1,0 +1,115 @@
+{
+  "flags": {
+    "fray": {
+      "threshold": 0.5,
+      "threshold_rate": 0.5,
+      "threshold_f1": 0.5,
+      "label_rate": 42.5,
+      "rate_at_half": 42.5,
+      "gap_at_half": 0.0,
+      "rate_at_threshold": 42.5,
+      "gap_at_threshold": 0.0,
+      "at_rate_cut": {
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "rate": 42.5,
+        "gap": 0.0
+      },
+      "at_f1_cut": {
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "rate": 42.5,
+        "gap": 0.0
+      },
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "chip": {
+      "threshold": 0.32,
+      "threshold_rate": 0.32,
+      "threshold_f1": 0.5,
+      "label_rate": 14.5,
+      "rate_at_half": 9.5,
+      "gap_at_half": -5.0,
+      "rate_at_threshold": 14.5,
+      "gap_at_threshold": 0.0,
+      "at_rate_cut": {
+        "f1": 0.6207,
+        "precision": 0.6207,
+        "recall": 0.6207,
+        "rate": 14.5,
+        "gap": 0.0
+      },
+      "at_f1_cut": {
+        "f1": 0.75,
+        "precision": 0.9474,
+        "recall": 0.6207,
+        "rate": 9.5,
+        "gap": -5.0
+      },
+      "f1": 0.75,
+      "precision": 0.9474,
+      "recall": 0.6207
+    },
+    "spot": {
+      "threshold": 0.5,
+      "threshold_rate": 0.5,
+      "threshold_f1": 0.17,
+      "label_rate": 48.5,
+      "rate_at_half": 48.5,
+      "gap_at_half": 0.0,
+      "rate_at_threshold": 48.5,
+      "gap_at_threshold": 0.0,
+      "at_rate_cut": {
+        "f1": 0.866,
+        "precision": 0.866,
+        "recall": 0.866,
+        "rate": 48.5,
+        "gap": 0.0
+      },
+      "at_f1_cut": {
+        "f1": 0.891,
+        "precision": 0.8246,
+        "recall": 0.9691,
+        "rate": 57.0,
+        "gap": 8.5
+      },
+      "f1": 0.891,
+      "precision": 0.8246,
+      "recall": 0.9691
+    },
+    "slash": {
+      "threshold": 0.48,
+      "threshold_rate": 0.48,
+      "threshold_f1": 0.48,
+      "label_rate": 35.0,
+      "rate_at_half": 33.5,
+      "gap_at_half": -1.5,
+      "rate_at_threshold": 35.0,
+      "gap_at_threshold": 0.0,
+      "at_rate_cut": {
+        "f1": 0.8571,
+        "precision": 0.8571,
+        "recall": 0.8571,
+        "rate": 35.0,
+        "gap": 0.0
+      },
+      "at_f1_cut": {
+        "f1": 0.8571,
+        "precision": 0.8571,
+        "recall": 0.8571,
+        "rate": 35.0,
+        "gap": 0.0
+      },
+      "f1": 0.8571,
+      "precision": 0.8571,
+      "recall": 0.8571
+    }
+  },
+  "pos_weight": false,
+  "labels": 200,
+  "note": "cutoffs chosen on out-of-fold predictions; gaps are percentage points against the hand labels"
+}

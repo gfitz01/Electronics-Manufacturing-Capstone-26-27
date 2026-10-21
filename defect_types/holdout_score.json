@@ -1,0 +1,54 @@
+{
+ "tag": "v1",
+ "castings": 50,
+ "cut": "f1",
+ "pos_weight": false,
+ "thresholds": "defect_types/stage_two/thresholds_nopw.json",
+ "flags": {
+  "fray": {
+   "cut": 0.5,
+   "right": 49,
+   "agreement": 98.0,
+   "caught": 10,
+   "false_alarm": 0,
+   "missed": 1,
+   "correct_no": 39,
+   "precision": 1.0,
+   "recall": 0.909
+  },
+  "chip": {
+   "cut": 0.5,
+   "right": 47,
+   "agreement": 94.0,
+   "caught": 8,
+   "false_alarm": 0,
+   "missed": 3,
+   "correct_no": 39,
+   "precision": 1.0,
+   "recall": 0.727
+  },
+  "spot": {
+   "cut": 0.17,
+   "right": 41,
+   "agreement": 82.0,
+   "caught": 29,
+   "false_alarm": 3,
+   "missed": 6,
+   "correct_no": 12,
+   "precision": 0.906,
+   "recall": 0.829
+  },
+  "slash": {
+   "cut": 0.48,
+   "right": 38,
+   "agreement": 76.0,
+   "caught": 5,
+   "false_alarm": 12,
+   "missed": 0,
+   "correct_no": 33,
+   "precision": 0.294,
+   "recall": 1.0
+  }
+ },
+ "all_four_right": 33
+}

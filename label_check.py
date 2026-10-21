@@ -49,6 +49,7 @@ import io
 import json
 import math
 import random
+import re
 import sys
 from collections import Counter
 from math import comb
@@ -79,6 +80,17 @@ FLAGS = [
      "bad spot."),
 ]
 FLAG_NAMES = [f[0] for f in FLAGS]
+
+
+def norm(p):
+    return Path(str(p).replace("\\", "/"))
+
+
+def tail(p):
+    """split/class/filename. The source dataset reuses filenames across its
+    train and val folders for DIFFERENT castings, so a bare filename is not a
+    unique key. Every cross-file join here uses this."""
+    return "/".join(norm(p).parts[-3:])
 
 
 def defect_images(base, class_name):
@@ -178,6 +190,62 @@ def welch(xs, ys):
 # build
 # --------------------------------------------------------------------------
 
+def source_of(name):
+    """(source split, original filename) for a file inside data_grouped.
+
+    make_grouped_split.py leaves a filename alone unless another source image
+    shares it, in which case it prefixes the split the copy came FROM. So
+    from-train__x.jpeg and from-val__x.jpeg are two different castings that
+    happen to share a name, and the prefix is the only thing that tells them
+    apart. A name with no prefix was unique in the source dataset."""
+    m = re.match(r"^from-(train|val)__(.+)$", name)
+    return (m.group(1), m.group(2)) if m else (None, name)
+
+
+def labelled_already(out_dir):
+    """Every casting any previous round put in front of you, as split/class/
+    filename keys -- see tail()."""
+    done = set()
+    for key in sorted(Path(out_dir).glob("blind_key*.csv")):
+        with open(key, newline="") as f:
+            for row in csv.DictReader(f):
+                done.add(tail(row["file"]))
+    return done
+
+
+def resolve_holdout(pool_dir, paths, class_name):
+    """Map the castings in a data_grouped folder back to their data_clean
+    paths, which is what blind_key and predicted.csv are keyed on.
+
+    Returns (indices into paths, ambiguous count, unmatched count). Resolving
+    by bare filename would be wrong for the colliding names: both copies strip
+    to the same name and whichever sorted last would win, silently scoring one
+    casting's labels against the other's predictions."""
+    by_tail = {tail(p): i for i, p in enumerate(paths)}
+    by_name = {}
+    for i, p in enumerate(paths):
+        by_name.setdefault(p.name, []).append(i)
+
+    found, ambiguous, unmatched = [], 0, 0
+    for p in sorted(pool_dir.rglob("*")):
+        if not (p.is_file() and p.suffix.lower() in IMAGE_SUFFIXES):
+            continue
+        split, name = source_of(p.name)
+        if split is not None:
+            i = by_tail.get(f"{split}/{class_name}/{name}")
+        else:
+            hits = by_name.get(name, [])
+            if len(hits) > 1:
+                ambiguous += 1
+                continue
+            i = hits[0] if hits else None
+        if i is None:
+            unmatched += 1
+            continue
+        found.append(i)
+    return found, ambiguous, unmatched
+
+
 def build(args):
     from sklearn.cluster import KMeans
     from sklearn.decomposition import PCA
@@ -209,7 +277,41 @@ def build(args):
     print()
 
     rng = random.Random(args.seed)
-    if args.from_shortlist:
+    if args.holdout:
+        # A round for MEASURING stage two, not teaching it. Draws only from
+        # castings in a folder the model never trained on -- the validation
+        # split -- and never one already labelled in an earlier round. Label
+        # these, then run validate_defect_types.py: that compares your answers
+        # to the predictions and gives stage two the held-out score stage one
+        # already has.
+        #
+        # Sampled at random, not balanced across the two clusters: the point is
+        # an honest estimate on that population, and balancing would distort
+        # the mix it is estimating.
+        pool_dir = Path(args.holdout)
+        if not pool_dir.is_dir():
+            raise SystemExit(f"Missing {pool_dir}\n--holdout wants a folder of "
+                             "castings, e.g. data_grouped/val/def_front")
+        here, ambiguous, unmatched = resolve_holdout(pool_dir, paths,
+                                                     args.class_name)
+        already = labelled_already(args.out)
+        seen_before = sum(tail(paths[i]) in already for i in here)
+        pool = sorted({i for i in here if tail(paths[i]) not in already})
+        print(f"  Holdout round: {len(here)} castings in {pool_dir}, "
+              f"{seen_before} already labelled in an earlier round,")
+        print(f"  {len(pool)} left to draw from.")
+        if ambiguous or unmatched:
+            print(f"  ({ambiguous} skipped as an ambiguous filename, "
+                  f"{unmatched} not found in {args.data})")
+        if len(pool) < args.n:
+            raise SystemExit(f"Only {len(pool)} available; ask for fewer "
+                             f"than {args.n} with --n")
+        picked = [(i, int(labels[i])) for i in rng.sample(pool, args.n)]
+        rng.shuffle(picked)
+        per_group = None
+        sampling = "holdout"
+        print(f"  Drawn at random, so the rates in it estimate the real ones.\n")
+    elif args.from_shortlist:
         # Label what the model cannot call, not a random sample. The shortlist
         # comes from apply_defect_types.py, ranked by how close the prediction
         # sits to 0.5. These are worth 2-3x random castings because each one
@@ -300,6 +402,17 @@ def build(args):
     if per_group is not None:
         print(f"{len(picked)} castings, {per_group} from each group, shuffled "
               f"(seed {args.seed}).")
+    elif sampling == "holdout":
+        by = Counter(grouping[g] for _, g in picked)
+        print(f"{len(picked)} castings drawn at random from {args.holdout} "
+              f"({', '.join(f'{v} from {k}' for k, v in sorted(by.items()))}), "
+              f"shuffled (seed {args.seed}).")
+        print("None of these were in stage two's training labels, and none")
+        print("were in stage one's training split either. Label them, save the")
+        print(f"download as {out/f'labels{tag}.csv'}, then run:")
+        print(f"    python validate_defect_types.py --tag {args.tag}")
+        print("Do not look at predicted.csv first -- the whole value of this")
+        print("round is that your answers were formed without seeing them.")
     else:
         by = Counter(grouping[g] for _, g in picked)
         print(f"{len(picked)} castings from the shortlist "
@@ -775,6 +888,11 @@ def main():
                     help="label the castings the model is least sure about "
                          "(from apply_defect_types.py) instead of a random "
                          "sample. Worth 2-3x per casting labelled.")
+    ap.add_argument("--holdout", metavar="DIR", default=None,
+                    help="draw only from castings in this folder (the "
+                         "validation split), skipping any already labelled. "
+                         "Use it to MEASURE stage two rather than teach it: "
+                         "label the round, then run validate_defect_types.py.")
     ap.add_argument("--n", type=int, default=200, help="sample size (even)")
     ap.add_argument("--size", type=int, default=380)
     ap.add_argument("--seed", type=int, default=11)

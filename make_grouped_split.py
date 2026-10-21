@@ -22,7 +22,15 @@ Only the second row is a generalization estimate, and 79 castings is a thin one.
 What this builds
 ----------------
 data_grouped/, where every rotation family sits entirely on one side of the
-split. A casting in validation has no copy of itself in training at any angle,
+split.
+
+    python make_grouped_split.py --dev-frac 0.1
+
+also writes data_grouped/dev/: about a tenth of the images, held out of
+training so that run.py can watch them and stop when training stops improving
+(see "STOPPING BY ITSELF" in run.py). Whole families again, so a dev image is
+never a rotation of a training image. The test set is untouched by that
+decision, which is the point of using a separate set for it. A casting in validation has no copy of itself in training at any angle,
 so the val score means what a val score is supposed to mean.
 
 The split targets the original proportions -- about 10% validation, with the
@@ -217,6 +225,16 @@ def main():
     ap.add_argument("--drop-contradictory", action="store_true",
                     help="exclude the images in cross-class pairs -- the same "
                          "casting labelled both defective and good")
+    ap.add_argument("--train-only", metavar="CSV", default=None,
+                    help="a blind_key CSV of hand-labelled castings. Their "
+                         "rotation families are forced into train/, so no "
+                         "casting stage two learned from can turn up in the "
+                         "test set. Without this, the two stages' training "
+                         "sets overlap and the defect rates on the test set "
+                         "are flattered by the ones you labelled.")
+    ap.add_argument("--dev-frac", type=float, default=0.0,
+                    help="fraction of the images to hold out as dev/, the set "
+                         "early stopping watches (0 = no dev folder)")
     ap.add_argument("--tries", type=int, default=600)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--dry-run", action="store_true")
@@ -296,20 +314,58 @@ def main():
     target_total = round(n_val * len(keptset) / n)
     target_def = round(n_val_def * len(keptset) / n)
 
-    val_keys = pick_val(fams, files, target_total, target_def, args.tries, args.seed)
+    # families that must stay in training, because stage two learned them
+    pinned = set()
+    if args.train_only:
+        want = set()
+        with open(args.train_only, newline="") as f:
+            for row in csv.DictReader(f):
+                want.add(tail(row["file"]))
+        bykey2 = {tail(p): i for i, (p, _, _) in enumerate(files)}
+        hit = [bykey2[k] for k in want if k in bykey2]
+        for k, members in fams.items():
+            if any(i in hit for i in members):
+                pinned.add(k)
+        print(f"TRAIN-ONLY : {len(hit)} of {len(want)} hand-labelled castings "
+              f"found; their {len(pinned)} families are pinned to train/")
+        print("    so nothing stage two trained on can appear in the test set.")
+        print()
+
+    val_keys = pick_val({k: v for k, v in fams.items() if k not in pinned},
+                        files, target_total, target_def, args.tries, args.seed)
     val_idx = {i for k in val_keys for i in fams[k]}
 
+    # dev/ comes out of what is left after val, again whole families
+    dev_idx = set()
+    if args.dev_frac > 0:
+        if not 0 < args.dev_frac < 0.5:
+            raise SystemExit("--dev-frac should be a small fraction, e.g. 0.1")
+        left = {k: v for k, v in fams.items()
+                if k not in val_keys and k not in pinned}
+        dev_total = round(args.dev_frac * len(keptset))
+        dev_def = round(dev_total * n_val_def / max(n_val, 1))
+        dev_keys = pick_val(left, files, dev_total, dev_def,
+                            args.tries, args.seed + 1)
+        dev_idx = {i for k in dev_keys for i in fams[k]}
+
+    def side(i):
+        return "val" if i in val_idx else "dev" if i in dev_idx else "train"
+
+    sides = ("train", "dev", "val") if dev_idx else ("train", "val")
     counts = Counter()
     for i in kept:
-        counts[("val" if i in val_idx else "train", files[i][2])] += 1
+        counts[(side(i), files[i][2])] += 1
     nv = sum(v for (s, _), v in counts.items() if s == "val")
 
     print("New split (families kept whole):")
     print(f"    {'':<6}{'def_front':>12}{'ok_front':>11}{'total':>9}")
-    for s in ("train", "val"):
+    for s in sides:
         t = counts[(s, "def_front")] + counts[(s, "ok_front")]
         print(f"    {s:<6}{counts[(s,'def_front')]:>12}"
               f"{counts[(s,'ok_front')]:>11}{t:>9}")
+    if dev_idx:
+        print("\n    dev/ is held out of training for early stopping only; "
+              "val/ is\n    still the set the reported accuracy comes from.")
     print(f"\n    validation is {100*nv/len(keptset):.1f}% of the data "
           f"(target {100*target_total/len(keptset):.1f}%), "
           f"{100*counts[('val','def_front')]/max(nv,1):.1f}% defective "
@@ -318,10 +374,9 @@ def main():
     # the guarantee, checked rather than asserted
     bad = 0
     for k, m in fams.items():
-        sides = {"val" if i in val_idx else "train" for i in m}
-        if len(sides) > 1:
+        if len({side(i) for i in m}) > 1:
             bad += 1
-    print(f"\n    families split across train and val: {bad}  "
+    print(f"\n    families split across train, dev and val: {bad}  "
           f"{'PASS' if bad == 0 else 'FAIL'}")
     if bad:
         raise SystemExit("Split is not group-aware. Not writing anything.")
@@ -333,7 +388,7 @@ def main():
     out = Path(args.out)
     if out.exists():
         shutil.rmtree(out)
-    for s in ("train", "val"):
+    for s in sides:
         for c in CLASSES:
             (out / s / c).mkdir(parents=True, exist_ok=True)
     name_count = Counter(files[i][0].name for i in kept)
@@ -343,8 +398,7 @@ def main():
               " those copies get a from-<split>__ prefix")
     for j, i in enumerate(kept):
         p, src_split, c = files[i]
-        dest = out / ("val" if i in val_idx else "train") / c / \
-            out_name(p, src_split, collided)
+        dest = out / side(i) / c / out_name(p, src_split, collided)
         if dest.exists():
             raise SystemExit(f"Refusing to overwrite {dest}")
         shutil.copy2(p, dest)
@@ -358,6 +412,10 @@ def main():
     print("=" * 70)
     print(f"    python run.py --data {args.out} augment")
     print(f"    python run.py --data {args.out}")
+    if dev_idx:
+        print()
+        print("  Both runs will stop themselves once the dev loss has not")
+        print("  improved for 10 epochs, and keep the best epoch's weights.")
     print()
     print("  Same settings as the originals, so the numbers are comparable.")
     print("  These are measured against castings the model has genuinely not")

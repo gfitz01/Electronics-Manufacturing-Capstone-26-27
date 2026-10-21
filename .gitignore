@@ -90,3 +90,6 @@ defect_types/blind_labels*.html
 # timestamped folder (JSON + CSV, well under 1 MB) that is the reproducible
 # record of what was run and what came out. That is exactly the kind of thing
 # a capstone wants in version control.
+
+# live_inspect.py camera snapshots and saved frames -- local only
+captures/

@@ -13,20 +13,27 @@ These are PREDICTIONS, not labels
 Every number here comes from a model with a measured accuracy, not from
 inspection. Cross-validated AUC on the 200 hand-labelled castings:
 
-    fray  1.00      spot  0.92      slash 0.92      chip  0.86
+    fray  1.00      slash 0.94      spot  0.92      chip  0.86
 
 So the fray column is close to reliable and the chip column is the shakiest.
 Quote these as estimates with that caveat attached, never as counts.
 
-Two known biases, both upward, both on the same two flags
---------------------------------------------------------
+Known biases, and why slash needs watching
+------------------------------------------
 Training used pos_weight to stop the rarer defects being ignored, which pushes
 the model toward calling them present. Measured against the hand labels
-reweighted to the full defect set, chip came out about 8 points high and slash
-about 5. fray and spot landed within 3 points.
+reweighted to the full defect set (the 28-epoch model of 28 Sept):
 
-So read chip and slash as upper bounds. The direction of the error is known
-even though the exact size is not.
+    slash  +16.4      chip  +4.4      spot  +2.8      fray  -2.7
+
+Slash is the one to distrust as a rate: the model calls it on 47.7% of
+defective castings where the hand labels imply about 31%. Its AUC is high
+(0.94), so it RANKS castings well -- it is the 0.5 cut that sits too low, not
+the model's judgement. Quote slash with the lean removed, or not as a rate at
+all.
+
+These numbers move when stage two is retrained. Recompute them from
+apply_defect_types.py's "ESTIMATED defect rates" table whenever you do.
 
 Restricting to genuinely unseen castings
 ----------------------------------------
@@ -56,6 +63,7 @@ where the neighbour cap left pairs unverified, so a ceiling).
 
 import argparse
 import csv
+import json
 import sys
 from collections import Counter
 from math import sqrt
@@ -65,10 +73,11 @@ from pathlib import Path
 FLAGS = ["fray", "chip", "spot", "slash"]
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
 # share predicted present over all 4,211 def_front (p >= 0.5) minus the hand
-# labels' rate reweighted to the population (group sizes in blind_meta_r2.json):
-#   fray 34.0 - 36.8   chip 20.3 - 12.5   spot 52.7 - 51.6   slash 36.3 - 31.3
-KNOWN_BIAS = {"fray": -2.8, "chip": +7.8, "spot": +1.1, "slash": +5.0}
-AUC = {"fray": 1.00, "chip": 0.86, "spot": 0.92, "slash": 0.92}
+# labels' rate reweighted to the population (group sizes in blind_meta_r2.json).
+# From the 28 Sept stage-two model, as apply_defect_types.py printed them:
+#   fray 34.1 - 36.8   chip 16.9 - 12.5   spot 54.4 - 51.6   slash 47.7 - 31.3
+KNOWN_BIAS = {"fray": -2.7, "chip": +4.4, "spot": +2.8, "slash": +16.4}
+AUC = {"fray": 1.00, "chip": 0.86, "spot": 0.92, "slash": 0.94}
 
 
 def wilson(k, n, z=1.96):
@@ -155,7 +164,23 @@ def main():
     ap.add_argument("--min-residual", type=float, default=5.7)
     ap.add_argument("--duplicates", default="rotation_duplicates.csv",
                     help="used to count distinct castings; skipped if absent")
-    ap.add_argument("--threshold", type=float, default=0.5)
+    ap.add_argument("--include-labelled", action="store_true",
+                    help="keep the castings you hand-labelled. They are left "
+                         "out by default: stage two trained on them, so their "
+                         "predictions are memory rather than judgement, and "
+                         "they flatter every rate by about a point.")
+    ap.add_argument("--threshold", type=float, default=None,
+                    help="one cutoff for every flag, overriding the tuned "
+                         "ones (0.5 is what the old runs used)")
+    ap.add_argument("--thresholds",
+                    default="defect_types/stage_two/thresholds.json",
+                    help="per-flag cutoffs measured by train_defect_types.py")
+    ap.add_argument("--cut", choices=["rate", "f1", "half"], default="rate",
+                    help="which measured cutoff to use: 'rate' matches the "
+                         "labelled rate (right for reporting rates, the "
+                         "default), 'f1' balances catching defects against "
+                         "false alarms (right for judging one casting), "
+                         "'half' is the old flat 0.5")
     args = ap.parse_args()
 
     d = Path(args.data) / args.split / args.class_name
@@ -170,11 +195,13 @@ def main():
     if not pred_path.is_file():
         raise SystemExit(f"Missing {pred_path}\n"
                          "Run:  python apply_defect_types.py")
-    P, by_name, roots = {}, {}, set()
+    P, by_name, roots, hand = {}, {}, set(), set()
     with open(pred_path, newline="") as f:
         for row in csv.DictReader(f):
             k = tail(row["file"])
             P[k] = {fl: float(row[f"p_{fl}"]) for fl in FLAGS}
+            if row.get("hand_labelled") == "1":
+                hand.add(k)
             by_name.setdefault(k.rsplit("/", 1)[-1], []).append(k)
             parts = Path(row["file"].replace("\\", "/")).parts
             if len(parts) >= 4:
@@ -199,15 +226,18 @@ def main():
         keep -= near
         dropped = before - len(keep)
 
-    rows, ambiguous = [], 0
+    rows, ambiguous, trained_on = [], 0, 0
     for nm in sorted(keep):
         src = (f"{args.split}/{args.class_name}/{nm}" if direct
                else source_of(nm, args.class_name, by_name))
         if src is None and len(by_name.get(nm, [])) > 1:
             ambiguous += 1
         elif src in P:
+            if src in hand and not args.include_labelled:
+                trained_on += 1
+                continue
             rows.append((src, P[src]))
-    missing = len(keep) - len(rows) - ambiguous
+    missing = len(keep) - len(rows) - ambiguous - trained_on
     n = len(rows)
     if not n:
         raise SystemExit("No castings matched between the folder and "
@@ -218,6 +248,9 @@ def main():
     if args.residuals:
         print(f"           -{dropped} with a training image closer than "
               f"{args.min_residual} (possible duplicates)")
+    if trained_on:
+        print(f"           -{trained_on} you hand-labelled, so stage two "
+              "trained on them")
     if ambiguous:
         print(f"           -{ambiguous} whose filename belongs to two different source")
         print("            images (split made before the collision fix), skipped")
@@ -241,25 +274,98 @@ def main():
         print("            independent, which makes them too narrow)")
     print()
 
-    t = args.threshold
-    print("=" * 66)
-    print(f"  PREDICTED defect types  (p >= {t})")
-    print("=" * 66)
-    print(f"    {'flag':<8}{'images':>8}{'rate':>9}{'95% CI':>16}{'AUC':>7}"
-          f"{'known bias':>12}")
-    for fl in FLAGS:
-        c = sum(1 for _, p in rows if p[fl] >= t)
-        lo, hi = wilson(round(c * n_eff / n), n_eff)
-        b = KNOWN_BIAS[fl]
-        print(f"    {fl:<8}{c:>8}{100*c/n:>8.1f}%"
-              f"{f'{100*lo:.0f} to {100*hi:.0f}':>16}{AUC[fl]:>7.2f}"
-              f"{b:>+11.1f}")
-    print()
-    print("    'known bias' is how far this flag ran high or low against the")
-    print("    hand labels, in points. chip and slash read high; subtract")
-    print("    roughly that much before quoting them.")
+    # Cutoffs: the ones train_defect_types.py measured, unless told otherwise.
+    tuned = None
+    if args.threshold is not None:
+        T = {fl: args.threshold for fl in FLAGS}
+        source = f"one cutoff of {args.threshold} for every flag, as you asked"
+    else:
+        tp = Path(args.thresholds)
+        try:
+            tuned = json.loads(tp.read_text())["flags"]
+            key = {"rate": "threshold_rate", "f1": "threshold_f1",
+                   "half": None}[args.cut]
+            if key is None:
+                T = {fl: 0.5 for fl in FLAGS}
+            else:
+                T = {fl: float(tuned[fl].get(key, tuned[fl]["threshold"]))
+                     for fl in FLAGS}
+            source = (f"'{args.cut}' cutoffs from {tp}" if key else
+                      f"0.5 for every flag, with gaps from {tp}")
+        except (OSError, ValueError, KeyError):
+            T = {fl: 0.5 for fl in FLAGS}
+            tuned = None
+            source = (f"0.5 for every flag -- no {tp} yet, so the 'lean' "
+                      "column is the stored correction")
 
-    counts = Counter(sum(1 for fl in FLAGS if p[fl] >= t) for _, p in rows)
+    print("=" * 66)
+    print("  PREDICTED defect types")
+    print("=" * 66)
+    print(f"    {source}")
+    print()
+    # The held-out score, if a labelling round has been scored. AUC and the
+    # gap column both come from the 200 the model trained on; this column is
+    # the only one measured on castings it never saw.
+    held = {}
+    try:
+        hs = json.loads((Path(args.predicted).parent
+                         / "holdout_score.json").read_text())
+        held = hs.get("flags", {})
+        held_n = hs.get("castings")
+    except (OSError, ValueError):
+        pass
+
+    head = "gap on 200" if tuned else "known bias"
+    hcol = f"{'held out':>11}" if held else ""
+    print(f"    {'flag':<8}{'cut':>5}{'images':>8}{'rate':>9}{'95% CI':>16}"
+          f"{'AUC':>7}{head:>12}{hcol}")
+    for fl in FLAGS:
+        c = sum(1 for _, p in rows if p[fl] >= T[fl])
+        lo, hi = wilson(round(c * n_eff / n), n_eff)
+        if tuned:
+            b = {"rate": tuned[fl].get("gap_at_threshold"),
+                 "f1": (tuned[fl].get("at_f1_cut") or {}).get("gap"),
+                 "half": tuned[fl].get("gap_at_half")}[args.cut]
+            b = 0.0 if b is None else b
+        else:
+            b = KNOWN_BIAS[fl]
+        h = ""
+        if held:
+            a = held.get(fl, {}).get("agreement")
+            h = f"{a:>10.1f}%" if a is not None else f"{'--':>11}"
+        print(f"    {fl:<8}{T[fl]:>5.2f}{c:>8}{100*c/n:>8.1f}%"
+              f"{f'{100*lo:.0f} to {100*hi:.0f}':>16}{AUC[fl]:>7.2f}"
+              f"{b:>+11.1f}{h}")
+    print()
+    if held:
+        print(f"    'held out' is how often the model agreed with your labels")
+        print(f"    on {held_n} castings it never trained on -- the only column")
+        print("    here not measured on the 200 it learned from. Run")
+        print("    validate_defect_types.py to refresh it.")
+        weak = [fl for fl in FLAGS
+                if (held.get(fl, {}).get("precision") or 1) < 0.6]
+        if weak:
+            print()
+            for fl in weak:
+                d = held[fl]
+                print(f"    {fl}: {d['caught']} of {d['caught']+d['false_alarm']}"
+                      f" calls were real on the held-out set, so most of the "
+                      f"{sum(1 for _, p in rows if p[fl] >= T[fl])} above")
+                print(f"    {' '*len(fl)}  are false alarms. Quote it as a "
+                      f"ranking, not a count.")
+        print()
+    if tuned:
+        print("    Each cutoff was chosen on castings the model did not train")
+        print("    on, and the last column is what the rate still misses the")
+        print("    hand labels by, in points, at that cutoff. Small numbers")
+        print("    there mean these rates can be quoted as they stand.")
+    else:
+        print("    'known bias' is how far this flag ran high or low against")
+        print("    the hand labels, in points, at a cutoff of 0.5. Subtract it")
+        print("    before quoting a rate -- or run train_defect_types.py to")
+        print("    replace the guesswork with measured cutoffs.")
+
+    counts = Counter(sum(1 for fl in FLAGS if p[fl] >= T[fl]) for _, p in rows)
     print()
     print("=" * 66)
     print("  HOW MANY DEFECTS PER CASTING")
@@ -280,7 +386,8 @@ def main():
     print("=" * 66)
     print("  MOST COMMON COMBINATIONS")
     print("=" * 66)
-    combos = Counter(tuple(fl for fl in FLAGS if p[fl] >= t) for _, p in rows)
+    combos = Counter(tuple(fl for fl in FLAGS if p[fl] >= T[fl])
+                     for _, p in rows)
     for combo, c in combos.most_common(8):
         name = " + ".join(combo) if combo else "(none predicted)"
         print(f"    {name:<28}{c:>6}{100*c/n:>8.1f}%")
@@ -288,7 +395,7 @@ def main():
     print()
     print("  Every figure above is a model estimate, not an inspection count.")
     print("  fray is the one to trust (AUC 1.00); chip the least (0.86 on 29")
-    print("  positive training examples).")
+    print("  positive training examples). slash ranks well but over-calls.")
     return 0
 
 
