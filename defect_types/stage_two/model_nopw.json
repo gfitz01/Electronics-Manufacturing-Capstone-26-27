@@ -1,0 +1,15 @@
+{
+ "arch": "alexnet",
+ "flags": [
+  "fray",
+  "chip",
+  "spot",
+  "slash"
+ ],
+ "epochs": 27,
+ "pos_weight": false,
+ "labels": 200,
+ "image_size": 224,
+ "preprocess": "Grayscale(3) -> Resize(224, 224) -> ToTensor, no normalisation",
+ "saved_at": "2026-10-19 21:12:39"
+}

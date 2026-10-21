@@ -3,6 +3,9 @@
     python apply_defect_types.py
     python apply_defect_types.py --focus chip --shortlist 200
     python apply_defect_types.py --epochs 60 --arch resnet18
+    python apply_defect_types.py --epochs auto      (the default: use the
+                                                     epoch count measured by
+                                                     train_defect_types.py)
 
 Two different things this gives you
 -----------------------------------
@@ -139,6 +142,39 @@ def all_defects(data, class_name):
     return found
 
 
+def resolve_epochs(value, out_dir, nopw=False):
+    """How many epochs the final fit should run, and why.
+
+    40 was a guess. train_defect_types.py now scores every epoch on held-out
+    castings across all five folds, so the epoch where that curve flattens is
+    measured rather than assumed -- the same idea as early stopping in run.py,
+    done through cross-validation because 200 labels are too few to give a
+    watch set away. Returns (epochs, reason)."""
+    if str(value).lower() != "auto":
+        try:
+            n = int(value)
+        except (TypeError, ValueError):
+            raise SystemExit(f"--epochs wants a number or 'auto', got {value!r}")
+        if n < 1:
+            raise SystemExit("--epochs must be at least 1")
+        return n, "you asked for this many"
+
+    suffix = "_nopw" if nopw else ""
+    curve_path = Path(out_dir) / "stage_two" / f"epoch_curve{suffix}.json"
+    try:
+        curve = json.loads(curve_path.read_text()).get("all") or {}
+    except OSError:
+        return 40, f"no {curve_path} yet -- run train_defect_types.py"
+    except ValueError as exc:
+        return 40, f"{curve_path} is not readable ({exc})"
+    best = curve.get("best_epoch")
+    if not best:
+        return 40, f"{curve_path} has no best_epoch"
+    return int(best), (f"cross-validation stopped improving there "
+                       f"(mean AUC {curve.get('best_mean_auc')}, "
+                       f"{curve.get('epochs')} epochs measured)")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -151,10 +187,17 @@ def main():
     ap.add_argument("--key", default="defect_types/blind_key_r2.csv")
     ap.add_argument("--labels", default="defect_types/labels_r2.csv")
     ap.add_argument("--arch", default="alexnet", choices=["alexnet", "resnet18"])
-    ap.add_argument("--epochs", type=int, default=40)
+    ap.add_argument("--epochs", default="auto",
+                    help="number of epochs, or 'auto' to use the epoch "
+                         "train_defect_types.py measured as the last one that "
+                         "helped (defect_types/stage_two/epoch_curve.json). "
+                         "Falls back to 40 when that file is missing.")
     ap.add_argument("--batch-size", type=int, default=16)
     ap.add_argument("--lr", type=float, default=1e-4)
     ap.add_argument("--freeze", action="store_true")
+    ap.add_argument("--no-pos-weight", action="store_true",
+                    help="train without the rare-class weighting, to match a "
+                         "train_defect_types.py --no-pos-weight run")
     ap.add_argument("--focus", default=None, choices=FLAGS,
                     help="rank the shortlist by this flag's uncertainty "
                          "(default: the weakest flag from the pilot)")
@@ -194,6 +237,10 @@ def main():
     print(f"\nPredicting  : {len(everything)} defective castings "
           f"({len(everything)-len(labelled)} of them never labelled)")
 
+    args.epochs, why = resolve_epochs(args.epochs, args.out,
+                                      nopw=args.no_pos_weight)
+    print(f"\nEpochs: {args.epochs}  ({why})")
+
     # ---------------- train on everything we have ----------------
     ttf, vtf = transforms_for()
     tl = DataLoader(DS(items, ttf), batch_size=args.batch_size, shuffle=True)
@@ -201,6 +248,9 @@ def main():
     pw = torch.tensor([(len(Y) - Y[:, k].sum()) / max(Y[:, k].sum(), 1)
                        for k in range(len(FLAGS))],
                       dtype=torch.float32).clamp(1.0, 8.0)
+    if args.no_pos_weight:
+        pw = torch.ones(len(FLAGS))
+        print("pos_weight off: the rare flags get no thumb on the scale.")
     crit = nn.BCEWithLogitsLoss(pos_weight=pw.to(device))
     opt = torch.optim.Adam([p for p in model.parameters() if p.requires_grad],
                            lr=args.lr)
@@ -221,6 +271,28 @@ def main():
             print(f"\r  epoch {ep+1}/{args.epochs}  loss {tot/len(items):.4f}",
                   end="", flush=True)
     print()
+
+    # ---------------- keep the weights ----------------
+    # Saved so live_inspect.py can call defect types on new parts without
+    # retraining. Named to match the cutoffs file from the same kind of run.
+    import time
+    wdir = Path(args.out) / "stage_two"
+    wdir.mkdir(parents=True, exist_ok=True)
+    suffix = "_nopw" if args.no_pos_weight else ""
+    weights_path = wdir / f"model{suffix}.pth"
+    torch.save(model.state_dict(), weights_path)
+    (wdir / f"model{suffix}.json").write_text(json.dumps({
+        "arch": args.arch,
+        "flags": FLAGS,
+        "epochs": args.epochs,
+        "pos_weight": not args.no_pos_weight,
+        "labels": len(items),
+        "image_size": 224,
+        "preprocess": "Grayscale(3) -> Resize(224, 224) -> ToTensor, "
+                      "no normalisation",
+        "saved_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }, indent=1), encoding="utf-8")
+    print(f"\nWeights saved to {weights_path}  (live_inspect.py loads these)")
 
     # ---------------- predict everything ----------------
     print("\nPredicting ...")
@@ -311,7 +383,8 @@ def main():
     # ---------------- the shortlist ----------------
     focus = args.focus
     if focus is None:
-        pilot = out / "stage_two" / "results.json"
+        pilot = (out / "stage_two" /
+                 ("results_nopw.json" if args.no_pos_weight else "results.json"))
         if pilot.is_file():
             try:
                 r = json.loads(pilot.read_text())

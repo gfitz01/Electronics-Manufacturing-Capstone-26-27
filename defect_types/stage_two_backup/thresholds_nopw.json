@@ -1,0 +1,51 @@
+{
+  "flags": {
+    "fray": {
+      "threshold": 0.5,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "label_rate": 42.5,
+      "rate_at_half": 42.5,
+      "rate_at_threshold": 42.5,
+      "gap_at_half": 0.0,
+      "gap_at_threshold": 0.0
+    },
+    "chip": {
+      "threshold": 0.75,
+      "f1": 0.766,
+      "precision": 1.0,
+      "recall": 0.6207,
+      "label_rate": 14.5,
+      "rate_at_half": 10.0,
+      "rate_at_threshold": 9.0,
+      "gap_at_half": -4.5,
+      "gap_at_threshold": -5.5
+    },
+    "spot": {
+      "threshold": 0.14,
+      "f1": 0.8889,
+      "precision": 0.8067,
+      "recall": 0.9897,
+      "label_rate": 48.5,
+      "rate_at_half": 50.0,
+      "rate_at_threshold": 59.5,
+      "gap_at_half": 1.5,
+      "gap_at_threshold": 11.0
+    },
+    "slash": {
+      "threshold": 0.43,
+      "f1": 0.8435,
+      "precision": 0.8052,
+      "recall": 0.8857,
+      "label_rate": 35.0,
+      "rate_at_half": 35.5,
+      "rate_at_threshold": 38.5,
+      "gap_at_half": 0.5,
+      "gap_at_threshold": 3.5
+    }
+  },
+  "pos_weight": false,
+  "labels": 200,
+  "note": "cutoffs chosen on out-of-fold predictions; gaps are percentage points against the hand labels"
+}

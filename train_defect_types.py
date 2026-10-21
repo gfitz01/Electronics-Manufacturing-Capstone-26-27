@@ -5,6 +5,12 @@
     python train_defect_types.py --arch resnet18      stronger backbone
     python train_defect_types.py --epochs 60
 
+Every epoch is scored on each fold's held-out castings, so the run also says
+where training stops paying off. That epoch count is written to
+defect_types/stage_two/epoch_curve.json, and apply_defect_types.py --epochs
+auto uses it instead of a fixed 40 -- early stopping for stage two, decided by
+cross-validation because 200 labels are too few to set a watch set aside.
+
 What this is
 ------------
 Stage one answers good or bad. This is stage two: given a casting stage one
@@ -285,7 +291,22 @@ def run_fold(train_items, val_items, args, device, pos_weight):
     opt = torch.optim.Adam(params, lr=args.lr)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=args.epochs)
 
-    for _ in range(args.epochs):
+    def score():
+        """Predictions on this fold's held-out part, and the loss there."""
+        model.eval()
+        P, Y, tot, n = [], [], 0.0, 0
+        with torch.no_grad():
+            for x, y in vl:
+                x, y = x.to(device), y.to(device)
+                logits = model(x)
+                tot += crit(logits, y).item() * len(x)
+                n += len(x)
+                P.append(torch.sigmoid(logits).cpu().numpy())
+                Y.append(y.cpu().numpy())
+        return np.vstack(P), np.vstack(Y), tot / max(n, 1)
+
+    hist = []
+    for ep in range(args.epochs):
         model.train()
         for x, y in tl:
             x, y = x.to(device), y.to(device)
@@ -295,16 +316,131 @@ def run_fold(train_items, val_items, args, device, pos_weight):
             opt.step()
         sched.step()
 
-    model.eval()
-    P, Y = [], []
-    with torch.no_grad():
-        for x, y in vl:
-            P.append(torch.sigmoid(model(x.to(device))).cpu().numpy())
-            Y.append(y.numpy())
-    return np.vstack(P), np.vstack(Y)
+        # Scored every epoch, which is what turns "40 epochs" from a guess
+        # into something measured. The fold's own held-out part is used, so
+        # these curves choose the epoch count; the headline AUCs still come
+        # from the fixed budget below.
+        P, Y, vloss = score()
+        hist.append({"epoch": ep + 1, "val_loss": round(vloss, 6),
+                     "mean_auc": mean_auc(P, Y)})
+
+    P, Y, _ = score()
+    return P, Y, hist
 
 
 # --------------------------------------------------------------------------
+
+def mean_auc(P, Y):
+    """AUC averaged over the flags that have both answers present."""
+    from sklearn.metrics import roc_auc_score
+    vals = []
+    for k in range(Y.shape[1]):
+        y = Y[:, k]
+        if 0 < y.sum() < len(y):
+            try:
+                vals.append(roc_auc_score(y, P[:, k]))
+            except ValueError:
+                pass
+    return round(float(np.mean(vals)), 6) if vals else float("nan")
+
+
+def summarise_curves(hists):
+    """Average the per-fold curves and say where the model stopped improving.
+
+    Averaging first matters: one fold's best epoch is noise on 40 castings.
+    The epoch picked here is the one the FINAL fit should use -- it is chosen
+    on held-out data, but on the same held-out data the AUCs are reported
+    from, so treat the AUC at that epoch as mildly optimistic and the epoch
+    count itself as the usable output."""
+    if not hists:
+        return None
+    n = min(len(h) for h in hists)
+    auc = [float(np.nanmean([h[e]["mean_auc"] for h in hists]))
+           for e in range(n)]
+    loss = [float(np.mean([h[e]["val_loss"] for h in hists]))
+            for e in range(n)]
+    best = int(np.nanargmax(auc)) + 1 if n else None
+    # anything within 0.005 of the best counts as the same; prefer the
+    # earliest such epoch, since later ones only cost time
+    if best:
+        top = auc[best - 1]
+        best = next(e + 1 for e in range(n) if auc[e] >= top - 0.005)
+    return {"epochs": n, "mean_auc": [round(v, 6) for v in auc],
+            "mean_val_loss": [round(v, 6) for v in loss],
+            "best_epoch": best,
+            "best_mean_auc": round(auc[best - 1], 6) if best else None}
+
+
+def pick_thresholds(P, Y, grid=None):
+    """Two cutoffs per flag, both chosen on out-of-fold predictions.
+
+    0.5 is an arbitrary place to cut, and the two jobs a cutoff does pull in
+    different directions:
+
+      threshold_f1    best balance of catching real defects against false
+                      ones. Use it to decide about ONE casting.
+      threshold_rate  the cut whose share of castings matches how often the
+                      hand labels actually show the flag. Use it to report a
+                      RATE -- which is what defect_breakdown.py does.
+
+    They differ more than you would think. Optimising F1 favours recall, so it
+    pushes the cut down and over-calls: on the 28 Sept run it put spot 8 to 11
+    points above the labelled rate while the rate-matched cut sat on it.
+
+    Both are measured on castings the model did not train on, and the gaps
+    recorded next to them are the calibration error in percentage points."""
+    grid = grid if grid is not None else [i / 100 for i in range(5, 100, 1)]
+    out = {}
+    for k, f in enumerate(FLAGS):
+        y, p = Y[:, k], P[:, k]
+        pos = float(y.sum())
+        n = len(y)
+        r = pos / n
+
+        def stats(t):
+            hit = p >= t
+            tp = float((hit & (y == 1)).sum())
+            fp = float((hit & (y == 0)).sum())
+            fn = float((~hit & (y == 1)).sum())
+            f1 = 2 * tp / (2 * tp + fp + fn) if (2 * tp + fp + fn) else 0.0
+            return {
+                "f1": round(f1, 4),
+                "precision": round(tp / (tp + fp), 4) if tp + fp else None,
+                "recall": round(tp / (tp + fn), 4) if tp + fn else None,
+                "rate": round(100 * float(hit.sum()) / n, 1),
+                "gap": round(100 * (float(hit.sum()) / n - r), 1),
+            }
+
+        # Guard rail for the F1 cut. On a flag whose scores carry little
+        # information, the best-F1 cut is one low enough to call almost
+        # everything present: recall 1.0 buys more than the precision it costs.
+        # That is a real optimum and a useless one, so only cuts that keep the
+        # predicted rate near the labelled one are considered.
+        lo, hi = max(0.5 * r, r - 0.15), min(2.0 * r, r + 0.15)
+        allowed = [t for t in grid
+                   if lo <= float((p >= t).sum()) / n <= hi] or list(grid)
+
+        # ties go to the cut nearer 0.5, which is the less surprising one
+        t_f1 = min(allowed, key=lambda t: (-stats(t)["f1"], abs(t - 0.5)))
+        t_rate = min(grid, key=lambda t: (abs(stats(t)["gap"]), abs(t - 0.5)))
+
+        out[f] = {
+            "threshold": round(t_rate, 2),      # what the breakdown uses
+            "threshold_rate": round(t_rate, 2),
+            "threshold_f1": round(t_f1, 2),
+            "label_rate": round(100 * r, 1),
+            "rate_at_half": stats(0.5)["rate"],
+            "gap_at_half": stats(0.5)["gap"],
+            "rate_at_threshold": stats(t_rate)["rate"],
+            "gap_at_threshold": stats(t_rate)["gap"],
+            "at_rate_cut": stats(t_rate),
+            "at_f1_cut": stats(t_f1),
+            "f1": stats(t_f1)["f1"],
+            "precision": stats(t_f1)["precision"],
+            "recall": stats(t_f1)["recall"],
+        }
+    return out
+
 
 def evaluate(P, Y):
     from sklearn.metrics import roc_auc_score
@@ -351,9 +487,9 @@ def cv(items, groups, args, device, sizes):
     folds = [keys[i::args.folds] for i in range(args.folds)]
     gkey = (lambda f: groups[f]) if groups else (lambda f: f)
 
-    results = {}
+    results, curves, oof = {}, {}, {}
     for size in sizes:
-        P_all, Y_all = [], []
+        P_all, Y_all, hists = [], [], []
         for fi in range(args.folds):
             held = set(folds[fi])
             tr = [it for it in items if gkey(it[0]) not in held]
@@ -367,15 +503,19 @@ def cv(items, groups, args, device, sizes):
             Y = np.array([y for _, y in tr], dtype=np.float32)
             pw = torch.tensor([(len(Y) - Y[:, k].sum()) / max(Y[:, k].sum(), 1)
                                for k in range(len(FLAGS))], dtype=torch.float32)
-            pw = pw.clamp(1.0, 8.0)
-            P, Yv = run_fold(tr, va, args, device, pw)
-            P_all.append(P); Y_all.append(Yv)
+            pw = torch.ones(len(FLAGS)) if args.no_pos_weight else pw.clamp(1.0, 8.0)
+            P, Yv, hist = run_fold(tr, va, args, device, pw)
+            P_all.append(P); Y_all.append(Yv); hists.append(hist)
             print(f"\r  n={size or len(tr):<4} fold {fi+1}/{args.folds}",
                   end="", flush=True)
         if P_all:
-            results[size or "all"] = evaluate(np.vstack(P_all), np.vstack(Y_all))
+            P_oof, Y_oof = np.vstack(P_all), np.vstack(Y_all)
+            results[size or "all"] = evaluate(P_oof, Y_oof)
+            curves[size or "all"] = summarise_curves(hists)
+            if size is None:
+                oof = {"P": P_oof, "Y": Y_oof}
         print()
-    return results
+    return results, curves, oof
 
 
 def main():
@@ -399,6 +539,11 @@ def main():
                          "images contribute: they cannot supply defect-type "
                          "labels, but they taught the backbone what castings "
                          "look like.")
+    ap.add_argument("--no-pos-weight", action="store_true",
+                    help="train without the rare-class weighting. That weight "
+                         "stops rare flags being ignored, at the cost of "
+                         "over-calling them; this says whether the trade was "
+                         "worth it. Results go to their own files.")
     ap.add_argument("--freeze", action="store_true",
                     help="train only the head. With ~200 images this often "
                          "beats fine-tuning everything.")
@@ -466,16 +611,88 @@ def main():
         print(f"\n*** PERMUTATION TEST on '{args.permute}' ***")
     print(f"\nTraining {args.folds}-fold, {args.epochs} epochs per fold"
           f"{'' if args.full else ', at four training sizes'}")
-    results = cv(items, groups, args, device, sizes)
+    results, curves, oof = cv(items, groups, args, device, sizes)
 
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
     # A permutation run is a diagnostic, not a result. Writing it to
     # results.json would let downstream tools read a deliberately broken score
     # as the real one -- which is exactly what happened: apply_defect_types.py
     # picked its shortlist flag by "weakest AUC" and found fray at 0.456.
-    name = f"results_permuted_{args.permute}.json" if args.permute else "results.json"
+    suffix = "_nopw" if args.no_pos_weight else ""
+    name = (f"results_permuted_{args.permute}.json" if args.permute
+            else f"results{suffix}.json")
     (out / name).write_text(json.dumps(results, indent=2, default=str))
     print(f"\n  wrote {out/name}")
+
+    if not args.permute and curves.get("all"):
+        curve_path = out / f"epoch_curve{suffix}.json"
+        curve_path.write_text(json.dumps(curves, indent=2, default=str))
+        print(f"  wrote {curve_path}")
+        c = curves["all"]
+        print("\n" + "=" * 70)
+        print("  WHERE TRAINING STOPS PAYING OFF")
+        print("=" * 70)
+        print("    Mean AUC over the four flags, averaged across folds, after")
+        print("    each epoch:")
+        step = max(1, c["epochs"] // 12)
+        for e in range(0, c["epochs"], step):
+            bar = "#" * int(40 * max(c["mean_auc"][e] - 0.5, 0) / 0.5)
+            mark = "  <- best" if e + 1 == c["best_epoch"] else ""
+            print(f"    epoch {e+1:>3}  {c['mean_auc'][e]:.3f}  {bar:<40}{mark}")
+        print()
+        print(f"    Best at epoch {c['best_epoch']} "
+              f"(mean AUC {c['best_mean_auc']:.3f}); {args.epochs} were run.")
+        print( "    Epochs after that one buy nothing measurable, so the final")
+        print( "    fit should stop there:")
+        print(f"        python apply_defect_types.py --epochs auto")
+        print( "    'auto' reads this file. The AUC at the chosen epoch is")
+        print( "    mildly optimistic -- it was picked on the same held-out")
+        print( "    castings -- so quote the table above, not this number.")
+
+    if not args.permute and oof:
+        th = pick_thresholds(oof["P"], oof["Y"])
+        th_path = out / f"thresholds{suffix}.json"
+        oof_path = out / f"oof_predictions{suffix}.csv"
+        with open(oof_path, "w", newline="") as fh:
+            w = csv.writer(fh)
+            w.writerow([f"p_{f}" for f in FLAGS] + [f"y_{f}" for f in FLAGS])
+            for pr, yr in zip(oof["P"], oof["Y"]):
+                w.writerow([f"{v:.4f}" for v in pr] + [int(v) for v in yr])
+        print(f"  wrote {oof_path}  (every held-out prediction, so cutoffs can")
+        print( "        be recomputed without retraining)")
+        th_path.write_text(json.dumps(
+            {"flags": th,
+             "pos_weight": not args.no_pos_weight,
+             "labels": int(len(oof["Y"])),
+             "note": "cutoffs chosen on out-of-fold predictions; "
+                     "gaps are percentage points against the hand labels"},
+            indent=2, default=str))
+        print(f"  wrote {th_path}")
+        print("\n" + "=" * 70)
+        print("  CUTOFFS, AND WHAT THEY DO TO THE RATES")
+        print("=" * 70)
+        print(f"    {'flag':<8}{'hand':>7}{'gap at':>8}"
+              f"{'rate cut':>10}{'gap':>6}{'F1 cut':>9}{'gap':>6}{'F1':>7}")
+        print(f"    {'':<8}{'':>7}{'0.5':>8}{'':>10}{'':>6}{'':>9}{'':>6}{'':>7}")
+        for f in FLAGS:
+            r = th[f]
+            print(f"    {f:<8}{r['label_rate']:>6.1f}%{r['gap_at_half']:>+8.1f}"
+                  f"{r['threshold_rate']:>10.2f}{r['gap_at_threshold']:>+6.1f}"
+                  f"{r['threshold_f1']:>9.2f}{r['at_f1_cut']['gap']:>+6.1f}"
+                  f"{r['f1']:>7.2f}")
+        print()
+        print("    'hand' is how often the 200 labelled castings really have")
+        print("    the flag. 'gap' columns are percentage points off that, so")
+        print("    they measure calibration; zero is perfect.")
+        print("      rate cut -- matches the labelled rate. Use it for rates;")
+        print("                  defect_breakdown.py reads it from this file.")
+        print("      F1 cut   -- best catch-versus-false-alarm balance. Use it")
+        print("                  to decide about one casting, not to count.")
+        print("    If 'gap at 0.5' is already small, the model is calibrated")
+        print("    as it stands and neither cut is doing much work.")
+        if args.no_pos_weight:
+            print("\n    This run had pos_weight OFF. Compare its gaps and AUCs")
+            print("    against results.json to see what the weighting bought.")
 
     print("\n" + "=" * 70)
     print("  AUC by flag and training-set size   (0.50 = chance, 1.00 = perfect)")

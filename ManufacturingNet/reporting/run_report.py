@@ -70,6 +70,8 @@ class RunReport:
             list(defect_classes) if defect_classes is not None else None
         )
         self.notes = notes
+        # filled in by set_early_stopping() when training stops itself
+        self.early_stopping = None
 
         self.started_at = datetime.now(timezone.utc)
         self.epochs = []
@@ -82,18 +84,29 @@ class RunReport:
 
     def log_epoch(self, epoch, train_loss, train_accuracy=None,
                   val_loss=None, val_accuracy=None, seconds=None,
-                  learning_rate=None):
-        """Record one epoch of training."""
+                  learning_rate=None, dev_loss=None, dev_accuracy=None):
+        """Record one epoch of training.
+
+        dev_loss/dev_accuracy are the early-stopping watch set, which is held
+        out of training and is NOT the validation set the final metrics come
+        from. They stay None when training runs a fixed number of epochs."""
         entry = OrderedDict()
         entry["epoch"] = int(epoch)
         entry["train_loss"] = _round(train_loss)
         entry["train_accuracy_pct"] = _round(train_accuracy)
+        entry["dev_loss"] = _round(dev_loss)
+        entry["dev_accuracy_pct"] = _round(dev_accuracy)
         entry["val_loss"] = _round(val_loss)
         entry["val_accuracy_pct"] = _round(val_accuracy)
         entry["seconds"] = _round(seconds, 2)
         entry["learning_rate"] = learning_rate
         self.epochs.append(entry)
         return entry
+
+    def set_early_stopping(self, **fields):
+        """Record how training decided to stop (see AlexNet.train_model)."""
+        self.early_stopping = dict(fields)
+        return self.early_stopping
 
     def set_predictions(self, y_true, y_pred, confidences=None,
                         file_paths=None):
@@ -252,6 +265,8 @@ class RunReport:
             ("notes", self.notes),
         ])
         document["hyperparameters"] = self.hyperparameters
+        if self.early_stopping is not None:
+            document["early_stopping"] = self.early_stopping
         document["epochs"] = self.epochs
         document["final_metrics"] = self.compute_metrics()
         if include_predictions:
@@ -272,6 +287,7 @@ class RunReport:
 
         csv_path = run_dir / "summary.csv"
         fieldnames = ["epoch", "train_loss", "train_accuracy_pct",
+                      "dev_loss", "dev_accuracy_pct",
                       "val_loss", "val_accuracy_pct", "seconds",
                       "learning_rate"]
         with open(csv_path, "w", newline="") as f:
