@@ -1,0 +1,31 @@
+number,kind,answer,model_on_clean_file,source_file
+1,real,defective (spot),defective: spot,cast_def_0_7465.jpeg
+2,real,good,good,cast_ok_0_8577.jpeg
+3,real,defective (spot),defective: spot,cast_def_0_2161.jpeg
+4,painted,painted: spot + slash,defective: spot,synthetic_5_spot_slash.jpeg
+5,real,good,good,cast_ok_0_8914.jpeg
+6,painted,painted: fray,good,synthetic_4_fray.jpeg
+7,real,good,good,cast_ok_0_1002.jpeg
+8,real,good,good,cast_ok_0_3424.jpeg
+9,real,defective (types not labelled),good  <- stage one misses this one,cast_def_0_3487.jpeg
+10,real,good,good,cast_ok_0_5535.jpeg
+11,painted,painted: slash,good,synthetic_3_slash.jpeg
+12,real,"defective (fray, spot)","defective: fray, spot, slash",cast_def_0_4133.jpeg
+13,painted,painted: chip,good,synthetic_2_chip.jpeg
+14,real,"defective (spot, slash)",defective: slash,cast_def_0_4924.jpeg
+15,real,defective (types not labelled),defective: spot,cast_def_0_5203.jpeg
+16,real,defective (types not labelled),"defective: fray, spot, slash",cast_def_0_5318.jpeg
+17,real,defective (spot),defective: spot,cast_def_0_6476.jpeg
+18,real,good,good,cast_ok_0_9948.jpeg
+19,real,"defective (chip, spot)",defective: spot,cast_def_0_7845.jpeg
+20,painted,painted: spot,"defective: fray, slash",synthetic_1_spot.jpeg
+21,real,defective (spot),defective: spot,cast_def_0_8488.jpeg
+22,real,good,good,cast_ok_0_3305.jpeg
+23,real,good,good,cast_ok_0_3054.jpeg
+24,real,defective (spot),defective: spot,cast_def_0_1247.jpeg
+25,real,good,good,from-val__cast_ok_0_505.jpeg
+26,real,good,good,cast_ok_0_6730.jpeg
+27,real,defective (spot),defective: spot,cast_def_0_3653.jpeg
+28,real,defective (types not labelled),good  <- stage one misses this one,cast_def_0_3021.jpeg
+29,real,good,good,cast_ok_0_5238.jpeg
+30,real,good,good,cast_ok_0_2404.jpeg

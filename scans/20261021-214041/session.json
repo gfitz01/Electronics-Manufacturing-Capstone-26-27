@@ -1,0 +1,62 @@
+{
+ "schema": "casting-inspection/1",
+ "generated_at": "2026-10-22T01:50:53Z",
+ "source": {
+  "stage_one": "results\\alexnet-aug-20261020-004718\\model_parameters.pth",
+  "stage_one_accuracy_pct": 99.72,
+  "stage_two": "defect_types\\stage_two\\model_nopw.pth",
+  "cutoffs": "'f1' cutoffs from defect_types\\stage_two\\thresholds_nopw.json",
+  "mode": "camera",
+  "finder": "trained detector (detector\\impeller.pt)",
+  "session": "20261021-214041",
+  "scans": 0
+ },
+ "summary": {
+  "castings": 0,
+  "verdict": {
+   "good": 0,
+   "defective": 0,
+   "not_inspected": 0
+  },
+  "label": {
+   "good": 0,
+   "defective": 0,
+   "unknown": 0
+  },
+  "accuracy": {
+   "judged": 0,
+   "correct": 0,
+   "incorrect": 0,
+   "pct": null,
+   "missed_defects": 0,
+   "false_alarms": 0
+  },
+  "near_duplicates": 0,
+  "defect_types": {
+   "assessed": 0,
+   "hand_labelled_excluded": 0,
+   "counts": {
+    "fray": 0,
+    "chip": 0,
+    "spot": 0,
+    "slash": 0
+   },
+   "rates_pct": {},
+   "cutoffs": {
+    "fray": 0.5,
+    "chip": 0.5,
+    "spot": 0.17,
+    "slash": 0.4
+   },
+   "per_casting": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+   },
+   "combinations": []
+  }
+ },
+ "castings": []
+}

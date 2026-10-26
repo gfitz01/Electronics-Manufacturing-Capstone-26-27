@@ -93,3 +93,16 @@ defect_types/blind_labels*.html
 
 # live_inspect.py camera snapshots and saved frames -- local only
 captures/
+
+# multi_inspect.py: crop images and self-test frames stay local;
+# each session's parts.csv and session.json can be committed
+scans/*/crops/
+scans/selftest-*/
+scans/*/frame-*.png
+
+# part detector: generated frames, Ultralytics run folders, downloaded start weights
+detect_data/
+results/detector/
+yolov8*.pt
+# ...but share the trained part detector (6.5 MB) so the team can run the scanner without retraining
+!detector/impeller.pt

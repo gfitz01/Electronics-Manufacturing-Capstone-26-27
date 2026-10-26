@@ -131,26 +131,29 @@ def find_stage_two(out_dir="defect_types"):
 def load_cuts(path, cut="f1"):
     cuts = {fl: 0.5 for fl in FLAGS}
     if cut == "half":
-        return cuts, "a flat 0.5"
-    key = "threshold_f1" if cut == "f1" else "threshold_rate"
+        src = "a flat 0.5"
+    else:
+        key = "threshold_f1" if cut == "f1" else "threshold_rate"
+        try:
+            flags = json.loads(Path(path).read_text())["flags"]
+            cuts = {fl: float(flags[fl].get(key, flags[fl]["threshold"]))
+                    for fl in FLAGS}
+            src = f"'{cut}' cutoffs from {path}"
+        except (OSError, ValueError, KeyError):
+            src = f"0.5 for every flag (could not read {path})"
+    # Hand-set cutoffs win over the measured ones, so the measured file stays
+    # a record of what training found. defect_types\stage_two\cutoff_overrides.json
+    # holds e.g. {"slash": 0.40}; delete the file to go back.
+    over = Path(path).parent / "cutoff_overrides.json"
     try:
-        flags = json.loads(Path(path).read_text())["flags"]
-        return ({fl: float(flags[fl].get(key, flags[fl]["threshold"]))
-                 for fl in FLAGS}, f"'{cut}' cutoffs from {path}")
-    except (OSError, ValueError, KeyError):
-        return cuts, f"0.5 for every flag (could not read {path})"
-
-
-def load_doubtful(out_dir="defect_types", floor=0.6):
-    """Flags whose calls were mostly wrong on the held-out labelling round.
-    Shown with a '?' so a live count is not read as more than it is."""
-    try:
-        flags = json.loads((Path(out_dir) / "holdout_score.json")
-                           .read_text())["flags"]
-    except (OSError, ValueError, KeyError):
-        return {}
-    return {fl: d["precision"] for fl, d in flags.items()
-            if d.get("precision") is not None and d["precision"] < floor}
+        manual = {fl: float(v) for fl, v in json.loads(over.read_text()).items()
+                  if fl in FLAGS}
+    except (OSError, ValueError, AttributeError):
+        manual = {}
+    if manual:
+        cuts.update(manual)
+        src += " -- set by hand: " + ", ".join(f"{fl} {v:.2f}" for fl, v in manual.items())
+    return cuts, src
 
 
 # --------------------------------------------------------------------------
@@ -812,7 +815,7 @@ def main():
         if args.thresholds:
             thr = Path(args.thresholds)
     cuts, cut_src = load_cuts(thr, args.cut)
-    doubtful = load_doubtful()
+    doubtful = {}
 
     print(f"Stage one : {s1}")
     if acc is not None:

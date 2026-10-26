@@ -1,0 +1,15 @@
+{
+ "weights": "detector/impeller.pt",
+ "run": "C:\\Users\\jackm\\CodingFolder\\Electronics-Manufacturing-Capstone-26-27\\results\\detector\\20261021-200416",
+ "start_weights": "yolov8n.pt",
+ "imgsz": 832,
+ "epochs_requested": 50,
+ "scores_on_check_frames": {
+  "precision": 0.9949,
+  "recall": 0.9988,
+  "mAP50": 0.995,
+  "mAP50_95": 0.9936
+ },
+ "box": "outer rim of the casting",
+ "crop_per_rim_diameter": 1.2361
+}
