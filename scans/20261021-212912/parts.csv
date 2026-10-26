@@ -1,0 +1,8 @@
+scan,part,time,source,verdict,confidence,p_defective,p_fray,p_chip,p_spot,p_slash,defects,label,correct,crop,x,y,size
+1,1,2026-10-22T01:29:30Z,camera 1,defective,1.0000,1.0000,0.0155,0.6685,0.0092,0.3333,chip,,,crops/scan0001-p1.png,153,54,199
+1,2,2026-10-22T01:29:30Z,camera 1,defective,1.0000,1.0000,0.0005,0.0033,0.8460,0.1692,spot,,,crops/scan0001-p2.png,392,48,188
+1,3,2026-10-22T01:29:30Z,camera 1,defective,1.0000,1.0000,0.0006,0.5419,0.0188,0.2016,chip,,,crops/scan0001-p3.png,608,34,208
+1,4,2026-10-22T01:29:30Z,camera 1,defective,1.0000,1.0000,0.0024,0.0012,0.5653,0.4575,spot;slash,,,crops/scan0001-p4.png,840,43,188
+1,5,2026-10-22T01:29:30Z,camera 1,defective,1.0000,1.0000,0.0084,0.6629,0.0153,0.2308,chip,,,crops/scan0001-p5.png,170,271,198
+1,6,2026-10-22T01:29:30Z,camera 1,defective,1.0000,1.0000,0.0001,0.8700,0.0705,0.0342,chip,,,crops/scan0001-p6.png,385,266,206
+1,7,2026-10-22T01:29:30Z,camera 1,defective,1.0000,1.0000,0.0005,0.8483,0.0084,0.0889,chip,,,crops/scan0001-p7.png,623,275,197

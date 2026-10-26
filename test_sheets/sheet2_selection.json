@@ -1,0 +1,224 @@
+{
+ "cuts": {
+  "fray": 0.5,
+  "chip": 0.5,
+  "spot": 0.17,
+  "slash": 0.4
+ },
+ "parts": [
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_3424.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_6730.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/from-val__cast_ok_0_505.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_3054.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_5238.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_8577.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_9948.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_8914.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_5535.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_1002.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_2404.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/ok_front/cast_ok_0_3305.jpeg",
+   "truth": "good",
+   "types_you": null,
+   "s1": "ok_front"
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_3021.jpeg",
+   "truth": "defective",
+   "types_you": null,
+   "s1": "ok_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_3487.jpeg",
+   "truth": "defective",
+   "types_you": null,
+   "s1": "ok_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_4924.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "spot",
+    "slash"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "slash"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_2161.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_7845.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "chip",
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_1247.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_8488.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_6476.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_3653.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_7465.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_4133.jpeg",
+   "truth": "defective",
+   "types_you": [
+    "fray",
+    "spot"
+   ],
+   "s1": "def_front",
+   "s2": [
+    "fray",
+    "spot",
+    "slash"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_5203.jpeg",
+   "truth": "defective",
+   "types_you": null,
+   "s1": "def_front",
+   "s2": [
+    "spot"
+   ]
+  },
+  {
+   "file": "data_grouped/val/def_front/cast_def_0_5318.jpeg",
+   "truth": "defective",
+   "types_you": null,
+   "s1": "def_front",
+   "s2": [
+    "fray",
+    "spot",
+    "slash"
+   ]
+  }
+ ]
+}

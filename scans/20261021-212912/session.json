@@ -1,0 +1,441 @@
+{
+ "schema": "casting-inspection/1",
+ "generated_at": "2026-10-22T01:40:29Z",
+ "source": {
+  "stage_one": "results\\alexnet-aug-20261020-004718\\model_parameters.pth",
+  "stage_one_accuracy_pct": 99.72,
+  "stage_two": "defect_types\\stage_two\\model_nopw.pth",
+  "cutoffs": "'f1' cutoffs from defect_types\\stage_two\\thresholds_nopw.json",
+  "mode": "camera",
+  "finder": "trained detector (detector\\impeller.pt)",
+  "session": "20261021-212912",
+  "scans": 1
+ },
+ "summary": {
+  "castings": 7,
+  "verdict": {
+   "good": 0,
+   "defective": 7,
+   "not_inspected": 0
+  },
+  "label": {
+   "good": 0,
+   "defective": 0,
+   "unknown": 7
+  },
+  "accuracy": {
+   "judged": 0,
+   "correct": 0,
+   "incorrect": 0,
+   "pct": null,
+   "missed_defects": 0,
+   "false_alarms": 0
+  },
+  "near_duplicates": 0,
+  "defect_types": {
+   "assessed": 7,
+   "hand_labelled_excluded": 0,
+   "counts": {
+    "fray": 0,
+    "chip": 5,
+    "spot": 2,
+    "slash": 1
+   },
+   "rates_pct": {
+    "fray": 0.0,
+    "chip": 71.4,
+    "spot": 28.6,
+    "slash": 14.3
+   },
+   "cutoffs": {
+    "fray": 0.5,
+    "chip": 0.5,
+    "spot": 0.17,
+    "slash": 0.4
+   },
+   "per_casting": {
+    "0": 0,
+    "1": 6,
+    "2": 1,
+    "3": 0,
+    "4": 0
+   },
+   "combinations": [
+    {
+     "types": [
+      "chip"
+     ],
+     "count": 5,
+     "pct": 71.4
+    },
+    {
+     "types": [
+      "spot"
+     ],
+     "count": 1,
+     "pct": 14.3
+    },
+    {
+     "types": [
+      "spot",
+      "slash"
+     ],
+     "count": 1,
+     "pct": 14.3
+    }
+   ]
+  }
+ },
+ "castings": [
+  {
+   "id": "scan0001-p1",
+   "file": "crops/scan0001-p1.png",
+   "split": null,
+   "label": null,
+   "verdict": "defective",
+   "confidence": 1.0,
+   "correct": null,
+   "defects": [
+    {
+     "type": "fray",
+     "score": 0.0155,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "chip",
+     "score": 0.6685,
+     "present": true,
+     "cutoff": 0.5
+    },
+    {
+     "type": "spot",
+     "score": 0.0092,
+     "present": false,
+     "cutoff": 0.17
+    },
+    {
+     "type": "slash",
+     "score": 0.3333,
+     "present": false,
+     "cutoff": 0.4
+    }
+   ],
+   "defect_count": 1,
+   "hand_labelled": false,
+   "duplicate": null,
+   "scan": {
+    "session": "20261021-212912",
+    "scan": 1,
+    "part": 1,
+    "time": "2026-10-22T01:29:30Z",
+    "source": "camera 1",
+    "box": [
+     153,
+     54,
+     199
+    ]
+   }
+  },
+  {
+   "id": "scan0001-p2",
+   "file": "crops/scan0001-p2.png",
+   "split": null,
+   "label": null,
+   "verdict": "defective",
+   "confidence": 1.0,
+   "correct": null,
+   "defects": [
+    {
+     "type": "fray",
+     "score": 0.0005,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "chip",
+     "score": 0.0033,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "spot",
+     "score": 0.846,
+     "present": true,
+     "cutoff": 0.17
+    },
+    {
+     "type": "slash",
+     "score": 0.1692,
+     "present": false,
+     "cutoff": 0.4
+    }
+   ],
+   "defect_count": 1,
+   "hand_labelled": false,
+   "duplicate": null,
+   "scan": {
+    "session": "20261021-212912",
+    "scan": 1,
+    "part": 2,
+    "time": "2026-10-22T01:29:30Z",
+    "source": "camera 1",
+    "box": [
+     392,
+     48,
+     188
+    ]
+   }
+  },
+  {
+   "id": "scan0001-p3",
+   "file": "crops/scan0001-p3.png",
+   "split": null,
+   "label": null,
+   "verdict": "defective",
+   "confidence": 1.0,
+   "correct": null,
+   "defects": [
+    {
+     "type": "fray",
+     "score": 0.0006,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "chip",
+     "score": 0.5419,
+     "present": true,
+     "cutoff": 0.5
+    },
+    {
+     "type": "spot",
+     "score": 0.0188,
+     "present": false,
+     "cutoff": 0.17
+    },
+    {
+     "type": "slash",
+     "score": 0.2016,
+     "present": false,
+     "cutoff": 0.4
+    }
+   ],
+   "defect_count": 1,
+   "hand_labelled": false,
+   "duplicate": null,
+   "scan": {
+    "session": "20261021-212912",
+    "scan": 1,
+    "part": 3,
+    "time": "2026-10-22T01:29:30Z",
+    "source": "camera 1",
+    "box": [
+     608,
+     34,
+     208
+    ]
+   }
+  },
+  {
+   "id": "scan0001-p4",
+   "file": "crops/scan0001-p4.png",
+   "split": null,
+   "label": null,
+   "verdict": "defective",
+   "confidence": 1.0,
+   "correct": null,
+   "defects": [
+    {
+     "type": "fray",
+     "score": 0.0024,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "chip",
+     "score": 0.0012,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "spot",
+     "score": 0.5653,
+     "present": true,
+     "cutoff": 0.17
+    },
+    {
+     "type": "slash",
+     "score": 0.4575,
+     "present": true,
+     "cutoff": 0.4
+    }
+   ],
+   "defect_count": 2,
+   "hand_labelled": false,
+   "duplicate": null,
+   "scan": {
+    "session": "20261021-212912",
+    "scan": 1,
+    "part": 4,
+    "time": "2026-10-22T01:29:30Z",
+    "source": "camera 1",
+    "box": [
+     840,
+     43,
+     188
+    ]
+   }
+  },
+  {
+   "id": "scan0001-p5",
+   "file": "crops/scan0001-p5.png",
+   "split": null,
+   "label": null,
+   "verdict": "defective",
+   "confidence": 1.0,
+   "correct": null,
+   "defects": [
+    {
+     "type": "fray",
+     "score": 0.0084,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "chip",
+     "score": 0.6629,
+     "present": true,
+     "cutoff": 0.5
+    },
+    {
+     "type": "spot",
+     "score": 0.0153,
+     "present": false,
+     "cutoff": 0.17
+    },
+    {
+     "type": "slash",
+     "score": 0.2308,
+     "present": false,
+     "cutoff": 0.4
+    }
+   ],
+   "defect_count": 1,
+   "hand_labelled": false,
+   "duplicate": null,
+   "scan": {
+    "session": "20261021-212912",
+    "scan": 1,
+    "part": 5,
+    "time": "2026-10-22T01:29:30Z",
+    "source": "camera 1",
+    "box": [
+     170,
+     271,
+     198
+    ]
+   }
+  },
+  {
+   "id": "scan0001-p6",
+   "file": "crops/scan0001-p6.png",
+   "split": null,
+   "label": null,
+   "verdict": "defective",
+   "confidence": 1.0,
+   "correct": null,
+   "defects": [
+    {
+     "type": "fray",
+     "score": 0.0001,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "chip",
+     "score": 0.87,
+     "present": true,
+     "cutoff": 0.5
+    },
+    {
+     "type": "spot",
+     "score": 0.0705,
+     "present": false,
+     "cutoff": 0.17
+    },
+    {
+     "type": "slash",
+     "score": 0.0342,
+     "present": false,
+     "cutoff": 0.4
+    }
+   ],
+   "defect_count": 1,
+   "hand_labelled": false,
+   "duplicate": null,
+   "scan": {
+    "session": "20261021-212912",
+    "scan": 1,
+    "part": 6,
+    "time": "2026-10-22T01:29:30Z",
+    "source": "camera 1",
+    "box": [
+     385,
+     266,
+     206
+    ]
+   }
+  },
+  {
+   "id": "scan0001-p7",
+   "file": "crops/scan0001-p7.png",
+   "split": null,
+   "label": null,
+   "verdict": "defective",
+   "confidence": 1.0,
+   "correct": null,
+   "defects": [
+    {
+     "type": "fray",
+     "score": 0.0005,
+     "present": false,
+     "cutoff": 0.5
+    },
+    {
+     "type": "chip",
+     "score": 0.8483,
+     "present": true,
+     "cutoff": 0.5
+    },
+    {
+     "type": "spot",
+     "score": 0.0084,
+     "present": false,
+     "cutoff": 0.17
+    },
+    {
+     "type": "slash",
+     "score": 0.0889,
+     "present": false,
+     "cutoff": 0.4
+    }
+   ],
+   "defect_count": 1,
+   "hand_labelled": false,
+   "duplicate": null,
+   "scan": {
+    "session": "20261021-212912",
+    "scan": 1,
+    "part": 7,
+    "time": "2026-10-22T01:29:30Z",
+    "source": "camera 1",
+    "box": [
+     623,
+     275,
+     197
+    ]
+   }
+  }
+ ]
+}

@@ -82,9 +82,9 @@
       "recall": 0.9691
     },
     "slash": {
-      "threshold": 0.48,
-      "threshold_rate": 0.48,
-      "threshold_f1": 0.48,
+      "threshold": 0.4,
+      "threshold_rate": 0.4,
+      "threshold_f1": 0.4,
       "label_rate": 35.0,
       "rate_at_half": 33.5,
       "gap_at_half": -1.5,
@@ -111,5 +111,16 @@
   },
   "pos_weight": false,
   "labels": 200,
-  "note": "cutoffs chosen on out-of-fold predictions; gaps are percentage points against the hand labels"
+  "note": "cutoffs chosen on out-of-fold predictions; gaps are percentage points against the hand labels",
+  "set_by_hand": {
+    "slash": {
+      "was": {
+        "threshold": 0.48,
+        "threshold_f1": 0.48,
+        "threshold_rate": 0.48
+      },
+      "now": 0.4,
+      "why": "declared by the team; training measured 0.48"
+    }
+  }
 }

@@ -1,0 +1,4 @@
+scan,part,time,source,verdict,confidence,p_defective,p_fray,p_chip,p_spot,p_slash,defects,label,correct,crop,x,y,size
+1,1,2026-10-21T23:14:02Z,camera 1,defective,1.0000,1.0000,0.0002,0.9316,0.0080,0.0465,chip,,,crops/scan0001-p1.png,459,62,206
+1,2,2026-10-21T23:14:02Z,camera 1,defective,1.0000,1.0000,0.0137,0.6009,0.0059,0.4335,chip,,,crops/scan0001-p2.png,464,301,197
+1,3,2026-10-21T23:14:02Z,camera 1,defective,1.0000,1.0000,0.0121,0.0091,0.9075,0.2905,spot,,,crops/scan0001-p3.png,707,510,188
