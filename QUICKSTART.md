@@ -152,3 +152,20 @@ python examples/demo_report.py
 This writes a `results.json` from simulated numbers so you can build against
 the format before the training run works. **Every number it produces is
 synthetic** — the metric computation is real, the inputs are not.
+
+## 6. View an inspection report in the frontend
+
+After running inference and exporting the report, start the local API from this
+directory:
+
+```bash
+python export_results.py
+python api.py
+```
+
+Open `http://127.0.0.1:8000/`. The API serves the sibling
+`AI-Manufacturing-UI---Frontend` directory and exposes
+`GET /api/inspection-report`, which reads `results/inspection.json`. The
+dashboard loads the report automatically and can refresh it without reloading
+the page. To use different locations, pass `--report` and `--frontend-dir` to
+`api.py`.
